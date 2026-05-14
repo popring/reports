@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Redirecting…</title>
+<script>
+(function(){
+  var path = location.pathname;
+  // Only handle SPA routes under ai-product-growth
+  var m = path.match(/\/reports\/ai-product-growth(?:\/([^\/]+))?(?:\/([^\/]+))?\/?$/);
+  if (m) {
+    // Store the full path and redirect to the SPA entry
+    sessionStorage.setItem('spaRedirect', path);
+    location.replace('/reports/ai-product-growth/');
+  }
+})();
+</script>
+</head>
+<body></body>
+</html>
