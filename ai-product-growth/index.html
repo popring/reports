@@ -145,10 +145,10 @@ function kidIdx(slug){
 // Hash routing
 function getRoute(){
   const h=location.hash.replace('#/','').replace(/\/$/,'');
-  if(!h)return{g:0,k:0,s2:-1};
+  if(!h)return{g:-1,k:-1,s2:-1};
   const p=h.split('/');
   const ki=kidIdx(p[0]);
-  if(!ki)return{g:0,k:0,s2:-1};
+  if(!ki)return{g:-1,k:-1,s2:-1};
   const kid=G[ki.g].kids[ki.k];
   if(!p[1]||!kid.S)return{g:ki.g,k:ki.k,s2:-1};
   const si=kid.S.findIndex(s=>s.sl===p[1]);
@@ -156,11 +156,13 @@ function getRoute(){
 }
 
 function pushRoute(g,k,s2){
+  // Hero page
+  if(g<0||k<0){location.hash='';document.title='AI 产品增长手册';return;}
   const kid=G[g].kids[k];
   const s=s2>=0&&kid.S[s2]?kid.S[s2].sl:'';
   location.hash='/'+kid.slug+(s?'/'+s:'');
   const st=s2>=0&&kid.S[s2]?kid.S[s2].t+' · ':'';
-  document.title=st+(k>=0?kid.title+' · ':'')+'AI 产品增长手册';
+  document.title=st+kid.title+' · AI 产品增长手册';
 }
 
 // ===== CONTENT =====
@@ -248,8 +250,12 @@ function nav(gi,ki,s2){
   main.scrollTop=0;window.scrollTo({top:0,behavior:'smooth'});
 }
 
+// Track current nav to avoid hash loop
+var curNav={g:-1,k:-1,s2:-1};
+
 // Route on load
 var r=getRoute();
+curNav={g:r.g,k:r.k,s2:r.s2};
 nav(r.g,r.k,r.s2);
 
 // Click delegation
@@ -262,7 +268,13 @@ sb.addEventListener('click',function(e){
   if(l2&&!l2.classList.contains('cs'))nav(parseInt(l2.dataset.g),parseInt(l2.dataset.k));
 });
 
-window.addEventListener('hashchange',function(){var r2=getRoute();nav(r2.g,r2.k,r2.s2);});
+window.addEventListener('hashchange',function(){
+  var r2=getRoute();
+  // Prevent double-navigation: skip if already at this route
+  if(r2.g===curNav.g&&r2.k===curNav.k&&r2.s2===curNav.s2)return;
+  curNav={g:r2.g,k:r2.k,s2:r2.s2};
+  nav(r2.g,r2.k,r2.s2);
+});
 })();
 </script>
 </body>
