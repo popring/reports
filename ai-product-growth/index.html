@@ -834,6 +834,15 @@ document.getElementById('sidebar').addEventListener('click', function(e){
   if(l1 && !l1.classList.contains('cs')) navigate(parseInt(l1.dataset.ch));
 });
 
+// SPA redirect fix: check if redirected from 404.html
+const redirectPath = sessionStorage.getItem('spaRedirect');
+if (redirectPath) {
+  sessionStorage.removeItem('spaRedirect');
+  // Parse the redirected path to extract route (it already has the full path)
+  // Replace current history entry silently
+  history.replaceState(null, '', redirectPath);
+}
+
 // Route on load
 const route = getRoute();
 navigate(route.ch, route.s2);
