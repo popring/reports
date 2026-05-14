@@ -1,546 +1,140 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>研究报告 — AI 产品增长手册 &amp; 技术研究合集</title>
-    <meta name="description" content="AI 产品增长与技术研究的深度报告合集，涵盖 SEO、GEO、增长策略等核心主题。">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        :root {
-            --accent: #60a5fa;
-            --accent-dim: #3b82f6;
-            --accent-glow: rgba(96, 165, 250, 0.15);
-            --surface: #111318;
-            --surface-raised: #191c24;
-            --surface-card: #1e212a;
-            --border-subtle: rgba(255, 255, 255, 0.06);
-            --border-accent: rgba(96, 165, 250, 0.2);
-            --text-primary: #f1f3f6;
-            --text-secondary: #8b8fa3;
-            --text-muted: #5c6070;
-            --tag-bg: rgba(96, 165, 250, 0.1);
-            --tag-text: #93c5fd;
-        }
-
-        * { box-sizing: border-box; }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--surface);
-            color: var(--text-primary);
-            min-height: 100vh;
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        .display-font {
-            font-family: 'Playfair Display', Georgia, serif;
-        }
-
-        /* Subtle grid background */
-        .bg-grid {
-            background-image:
-                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 60px 60px;
-        }
-
-        /* Header gradient */
-        .header-gradient {
-            background: linear-gradient(135deg, #0f172a 0%, #1a1f2e 40%, #0f1923 100%);
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        /* Accent glow for headlines */
-        .accent-glow {
-            text-shadow: 0 0 40px rgba(96, 165, 250, 0.1);
-        }
-
-        /* Card */
-        .report-card {
-            background: var(--surface-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-        }
-
-        .report-card:hover {
-            border-color: var(--border-accent);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px var(--accent-glow);
-        }
-
-        /* Cover image area */
-        .card-cover {
-            position: relative;
-            height: 200px;
-            overflow: hidden;
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #1a1f3c 100%);
-        }
-
-        .card-cover::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 60%, var(--surface-card) 100%);
-        }
-
-        .card-cover .cover-art {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 80px;
-            opacity: 0.12;
-        }
-
-        .card-cover .cover-pattern {
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(circle at 30% 40%, rgba(96,165,250,0.08) 0%, transparent 50%),
-                radial-gradient(circle at 70% 60%, rgba(56,189,248,0.06) 0%, transparent 40%);
-        }
-
-        .card-cover .cover-badge {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            z-index: 2;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            padding: 4px 12px;
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--text-secondary);
-        }
-
-        /* Tags */
-        .tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 500;
-            background: var(--tag-bg);
-            color: var(--tag-text);
-            transition: all 0.2s;
-            cursor: default;
-        }
-
-        .tag:hover {
-            background: rgba(96, 165, 250, 0.18);
-        }
-
-        /* Meta items */
-        .meta-item {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--text-muted);
-            font-size: 13px;
-        }
-
-        /* Search bar */
-        .search-wrapper {
-            position: relative;
-        }
-
-        .search-wrapper i {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-            font-size: 16px;
-            pointer-events: none;
-            transition: color 0.2s;
-        }
-
-        .search-wrapper input {
-            width: 100%;
-            background: var(--surface-raised);
-            border: 1px solid var(--border-subtle);
-            border-radius: 12px;
-            padding: 14px 16px 14px 48px;
-            color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
-            font-size: 15px;
-            outline: none;
-            transition: all 0.3s;
-        }
-
-        .search-wrapper input::placeholder {
-            color: var(--text-muted);
-        }
-
-        .search-wrapper input:focus {
-            border-color: var(--accent-dim);
-            box-shadow: 0 0 0 3px var(--accent-glow);
-        }
-
-        .search-wrapper:focus-within i {
-            color: var(--accent);
-        }
-
-        /* Filter buttons */
-        .filter-btn {
-            padding: 8px 18px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            background: transparent;
-            border: 1px solid var(--border-subtle);
-            cursor: pointer;
-            transition: all 0.25s;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .filter-btn:hover {
-            border-color: rgba(255,255,255,0.15);
-            color: var(--text-primary);
-        }
-
-        .filter-btn.active {
-            background: var(--tag-bg);
-            border-color: var(--border-accent);
-            color: var(--tag-text);
-        }
-
-        /* Read more link */
-        .read-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--accent);
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.25s;
-        }
-
-        .read-link:hover {
-            gap: 12px;
-            color: #93c5fd;
-        }
-
-        .read-link i {
-            font-size: 12px;
-            transition: transform 0.25s;
-        }
-
-        .read-link:hover i {
-            transform: translateX(4px);
-        }
-
-        /* Divider */
-        .section-divider {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--border-subtle), transparent);
-            margin: 32px 0;
-        }
-
-        /* Empty state */
-        .empty-state {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 80px 20px;
-            color: var(--text-muted);
-            text-align: center;
-        }
-
-        .empty-state.visible {
-            display: flex;
-        }
-
-        .empty-state i {
-            font-size: 48px;
-            margin-bottom: 16px;
-            opacity: 0.4;
-        }
-
-        /* Stats counter */
-        .stat-number {
-            font-size: 36px;
-            font-weight: 700;
-            color: var(--text-primary);
-            line-height: 1;
-        }
-
-        .stat-label {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
-
-        /* Scrollable tags on mobile */
-        .tags-scroll {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            padding-bottom: 4px;
-        }
-
-        .tags-scroll::-webkit-scrollbar { display: none; }
-
-        /* Animation */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        .animate-in {
-            animation: fadeUp 0.6s ease-out forwards;
-        }
-
-        .animate-in-delay-1 { animation-delay: 0.1s; }
-        .animate-in-delay-2 { animation-delay: 0.2s; }
-        .animate-in-delay-3 { animation-delay: 0.3s; }
-
-        /* Responsive adjustments */
-        @media (max-width: 640px) {
-            .card-cover { height: 160px; }
-            .stat-number { font-size: 28px; }
-            header h1 { font-size: 2rem !important; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>研究报告 — AI 产品增长手册</title>
+<meta name="description" content="深度研究报告合集">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111;
+  --surface-raised: #18181a;
+  --border: rgba(255,255,255,0.06);
+  --border-hover: rgba(255,255,255,0.12);
+  --text: #e8e8ee;
+  --text-secondary: #8a8a9a;
+  --text-muted: #5a5a6a;
+  --accent: #0ea5e9;
+  --accent-glow: rgba(14,165,233,0.12);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.024'/%3E%3C/svg%3E") repeat;
+  pointer-events: none;
+  z-index: 9999;
+}
+.container { max-width: 800px; margin: 0 auto; padding: 60px 24px; }
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.subtitle { color: var(--text-secondary); font-size: 15px; margin-bottom: 40px; }
+.divider { height:1px; background:linear-gradient(90deg,transparent,var(--border),transparent); margin:32px 0; }
+.card {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  text-decoration: none;
+  color: inherit;
+  transition: all .3s;
+  position: relative;
+  overflow: hidden;
+}
+.card:hover {
+  border-color: var(--border-hover);
+  background: var(--surface-raised);
+}
+.card::after {
+  content: '\f061';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent);
+  opacity: 0;
+  transition: all .3s;
+}
+.card:hover::after { opacity: 1; right: 20px; }
+.card-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  background: var(--accent-glow);
+  color: var(--accent);
+}
+.card h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  padding-right: 40px;
+}
+.card p { color: var(--text-secondary); font-size: 14px; line-height: 1.7; margin-bottom: 16px; }
+.card-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+.card-meta span { display: flex; align-items: center; gap: 4px; }
+.status-chip {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 8px;
+  text-transform: uppercase;
+  letter-spacing: .3px;
+}
+.status-live { background: rgba(16,185,129,0.15); color: #10b981; }
+@media (max-width:600px) {
+  .container { padding: 40px 16px; }
+  h1 { font-size: 28px; }
+  .card { padding: 20px; }
+  .card h2 { font-size: 18px; }
+}
+</style>
 </head>
 <body>
+<div class="container">
+  <h1>研究报告</h1>
+  <p class="subtitle">AI 产品增长相关的深度研究报告合集</p>
+  <div class="divider"></div>
 
-    <!-- ========== HEADER ========== -->
-    <header class="header-gradient bg-grid">
-        <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
-            <!-- Breadcrumb -->
-            <div class="flex items-center gap-2 text-sm text-text-muted mb-8" style="color: var(--text-muted);">
-                <a href="/" class="hover:text-text-primary transition-colors" style="color: var(--text-muted);">首页</a>
-                <span style="color: var(--text-muted);">/</span>
-                <span style="color: var(--text-secondary);">研究报告</span>
-            </div>
-
-            <!-- Title -->
-            <div class="max-w-3xl">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-6"
-                     style="background: var(--tag-bg); color: var(--tag-text); border: 1px solid var(--border-accent);">
-                    <i class="fa-solid fa-book-open" style="font-size: 11px;"></i>
-                    研究合集
-                </div>
-
-                <h1 class="display-font text-5xl md:text-6xl lg:text-7xl font-bold leading-tight accent-glow"
-                    style="color: var(--text-primary);">
-                    研究报告
-                </h1>
-                <p class="text-lg md:text-xl mt-4" style="color: var(--text-secondary);">
-                    AI 产品增长手册 &amp; 技术研究合集
-                </p>
-            </div>
-
-            <!-- Stats row -->
-            <div class="flex flex-wrap gap-10 md:gap-16 mt-12">
-                <div>
-                    <div class="stat-number" id="totalReports">1</div>
-                    <div class="stat-label">报告</div>
-                </div>
-                <div>
-                    <div class="stat-number" id="totalChapters">12</div>
-                    <div class="stat-label">章节</div>
-                </div>
-                <div>
-                    <div class="stat-number" id="totalReadTime">~30</div>
-                    <div class="stat-label">分钟阅读</div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- ========== MAIN ========== -->
-    <main class="max-w-6xl mx-auto px-6 py-12">
-
-        <!-- Search & Filters -->
-        <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-            <div class="search-wrapper flex-1 max-w-md w-full">
-                <i class="fa-solid fa-search"></i>
-                <input type="text" id="searchInput" placeholder="搜索报告..." autocomplete="off">
-            </div>
-            <div class="tags-scroll flex-shrink-0">
-                <button class="filter-btn active" data-filter="all">全部</button>
-                <button class="filter-btn" data-filter="SEO">SEO</button>
-                <button class="filter-btn" data-filter="GEO">GEO</button>
-                <button class="filter-btn" data-filter="AI">AI</button>
-                <button class="filter-btn" data-filter="增长策略">增长策略</button>
-            </div>
-        </div>
-
-        <div class="section-divider"></div>
-
-        <!-- Report Grid -->
-        <div id="reportGrid" class="grid gap-8 md:grid-cols-1">
-
-            <!-- ===== REPORT CARD: SEO & GEO 优化指南 ===== -->
-            <article class="report-card animate-in" data-tags="SEO,GEO,AI,增长策略" data-title="seo geo 优化指南">
-                <div class="flex flex-col md:flex-row">
-                    <!-- Cover -->
-                    <div class="card-cover md:w-72 md:h-auto md:flex-shrink-0">
-                        <div class="cover-pattern"></div>
-                        <div class="cover-art display-font" style="font-size: 60px; opacity: 0.1; font-weight: 700;">
-                            SEO<br>&amp; GEO
-                        </div>
-                        <div class="cover-badge">
-                            <i class="fa-regular fa-file-lines" style="margin-right: 4px;"></i>
-                            v1.0
-                        </div>
-                    </div>
-
-                    <!-- Content -->
-                    <div class="p-6 md:p-8 flex flex-col flex-1">
-                        <!-- Tags -->
-                        <div class="flex flex-wrap gap-2 mb-3">
-                            <span class="tag"><i class="fa-solid fa-tag" style="font-size: 10px;"></i> SEO</span>
-                            <span class="tag"><i class="fa-solid fa-tag" style="font-size: 10px;"></i> GEO</span>
-                            <span class="tag"><i class="fa-solid fa-tag" style="font-size: 10px;"></i> AI</span>
-                            <span class="tag"><i class="fa-solid fa-tag" style="font-size: 10px;"></i> 增长策略</span>
-                        </div>
-
-                        <!-- Title -->
-                        <h2 class="display-font text-2xl md:text-3xl font-semibold leading-snug mb-3"
-                            style="color: var(--text-primary);">
-                            SEO &amp; GEO 优化指南
-                        </h2>
-
-                        <!-- Description -->
-                        <p class="text-sm md:text-base mb-4 flex-1" style="color: var(--text-secondary); line-height: 1.7;">
-                            从传统搜索引擎优化到生成式引擎优化的完整转型指南。涵盖技术 SEO、内容策略、Google SGE 应对、GEO 方法论，以及 AI 产品专属的增长策略。
-                        </p>
-
-                        <!-- Meta & CTA -->
-                        <div class="flex flex-wrap items-center justify-between gap-4 mt-auto pt-4"
-                             style="border-top: 1px solid var(--border-subtle);">
-
-                            <div class="flex flex-wrap items-center gap-4">
-                                <span class="meta-item">
-                                    <i class="fa-regular fa-file-lines"></i>
-                                    12 章
-                                </span>
-                                <span class="meta-item">
-                                    <i class="fa-regular fa-clock"></i>
-                                    ~30 分钟
-                                </span>
-                                <span class="meta-item">
-                                    <i class="fa-regular fa-calendar"></i>
-                                    2026-05-14
-                                </span>
-                            </div>
-
-                            <a href="/reports/seo-geo-guide/" class="read-link">
-                                阅读报告
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-        </div>
-
-        <!-- Empty State -->
-        <div class="empty-state" id="emptyState">
-            <i class="fa-regular fa-file-magnifying-glass"></i>
-            <h3 class="text-lg font-medium mb-2" style="color: var(--text-secondary);">未找到匹配的报告</h3>
-            <p class="text-sm" style="color: var(--text-muted);">尝试使用不同的关键词或筛选条件</p>
-        </div>
-
-        <!-- Footer -->
-        <div class="section-divider"></div>
-
-        <footer class="flex flex-col sm:flex-row items-center justify-between gap-4 pb-8 text-sm"
-                style="color: var(--text-muted);">
-            <span>© 2026 AI 产品增长手册</span>
-            <div class="flex items-center gap-4">
-                <span>持续更新中</span>
-                <span class="w-1.5 h-1.5 rounded-full inline-block" style="background: #22c55e; box-shadow: 0 0 6px rgba(34,197,94,0.4);"></span>
-                <span style="color: var(--text-muted);">内容有生命</span>
-            </div>
-        </footer>
-
-    </main>
-
-    <!-- ========== JAVASCRIPT ========== -->
-    <script>
-        (function() {
-            const searchInput = document.getElementById('searchInput');
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            const reportCards = document.querySelectorAll('.report-card');
-            const emptyState = document.getElementById('emptyState');
-            const totalReportsEl = document.getElementById('totalReports');
-
-            function filterReports() {
-                const query = searchInput.value.trim().toLowerCase();
-                const activeFilter = document.querySelector('.filter-btn.active');
-                const activeTag = activeFilter ? activeFilter.dataset.filter : 'all';
-
-                let visibleCount = 0;
-
-                reportCards.forEach(card => {
-                    const tags = (card.dataset.tags || '').toLowerCase();
-                    const title = (card.dataset.title || '').toLowerCase();
-
-                    const matchesTag = activeTag === 'all' || tags.includes(activeTag.toLowerCase());
-                    const matchesSearch = !query ||
-                        title.includes(query) ||
-                        tags.includes(query);
-
-                    const visible = matchesTag && matchesSearch;
-                    card.style.display = visible ? '' : 'none';
-                    if (visible) visibleCount++;
-                });
-
-                // Update empty state
-                emptyState.classList.toggle('visible', visibleCount === 0);
-            }
-
-            // Search input
-            searchInput.addEventListener('input', filterReports);
-
-            // Filter buttons
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    filterBtns.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    filterReports();
-                });
-            });
-
-            // Initial count
-            totalReportsEl.textContent = reportCards.length;
-
-            // Keyboard shortcut: Cmd/Ctrl + K to focus search
-            document.addEventListener('keydown', function(e) {
-                if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-                    e.preventDefault();
-                    searchInput.focus();
-                }
-            });
-        })();
-    </script>
-
+  <a class="card" href="/ai-product-growth/">
+    <div class="card-tag"><i class="fas fa-book-open" style="margin-right:4px"></i> 持续更新</div>
+    <h2>AI 产品增长手册</h2>
+    <p>从 SEO 到 GEO，从定价到 PLG——AI 产品的系统性增长指南。涵盖技术 SEO、内容策略、SGE/AI Overviews、GEO 方法论、GEO 内容与技术实现、GEO 度量体系，以及定价策略、PLG、社区增长等 16 个章节。</p>
+    <div class="card-meta">
+      <span><i class="far fa-file-alt"></i> 16 章</span>
+      <span><i class="fas fa-tag"></i> v1.0</span>
+      <span><span class="status-chip status-live">7 章已发布</span></span>
+    </div>
+  </a>
+</div>
 </body>
 </html>
