@@ -1,1934 +1,546 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SEO & GEO 优化指南 - AI 产品增长手册</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<style>
-/* ===== CSS Variables & Reset ===== */
-:root {
-  --bg-primary: #0a0a1a;
-  --bg-secondary: #12122a;
-  --bg-card: rgba(255,255,255,0.04);
-  --bg-card-hover: rgba(255,255,255,0.08);
-  --text-primary: #e8e8f0;
-  --text-secondary: #9999b0;
-  --text-muted: #666680;
-  --border-subtle: rgba(255,255,255,0.06);
-  --border-card: rgba(255,255,255,0.08);
-  --accent-seo: #0ea5e9;
-  --accent-seo-glow: rgba(14,165,233,0.3);
-  --accent-seo-dark: #0284c7;
-  --accent-geo: #8b5cf6;
-  --accent-geo-glow: rgba(139,92,246,0.3);
-  --accent-geo-dark: #7c3aed;
-  --accent-ai: #f97316;
-  --accent-ai-glow: rgba(249,115,22,0.3);
-  --accent-ai-dark: #ea580c;
-  --sidebar-width: 260px;
-  --sidebar-collapsed: 0px;
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
-  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  line-height: 1.7;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-
-/* ===== Background Gradient ===== */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background:
-    radial-gradient(ellipse at 15% 20%, rgba(14,165,233,0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 85% 30%, rgba(139,92,246,0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 80%, rgba(249,115,22,0.05) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* ===== Scrollbar ===== */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
-
-/* ===== Sidebar ===== */
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: var(--sidebar-width);
-  height: 100vh;
-  background: var(--bg-secondary);
-  border-right: 1px solid var(--border-subtle);
-  z-index: 100;
-  display: flex;
-  flex-direction: column;
-  transition: transform var(--transition);
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.sidebar-brand {
-  padding: 24px 20px;
-  border-bottom: 1px solid var(--border-subtle);
-  flex-shrink: 0;
-}
-
-.sidebar-brand h1 {
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: -0.3px;
-  background: linear-gradient(135deg, var(--accent-seo), var(--accent-geo));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.sidebar-brand .subtitle {
-  font-size: 11px;
-  color: var(--text-muted);
-  margin-top: 2px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-}
-
-.sidebar-nav {
-  padding: 12px 0;
-  flex: 1;
-}
-
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 20px;
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all var(--transition);
-  border-left: 3px solid transparent;
-  position: relative;
-}
-
-.nav-item:hover {
-  color: var(--text-primary);
-  background: rgba(255,255,255,0.03);
-}
-
-.nav-item.active {
-  color: var(--text-primary);
-  background: rgba(255,255,255,0.05);
-  border-left-color: var(--accent-seo);
-}
-
-.nav-item.active.seo-page { border-left-color: var(--accent-seo); }
-.nav-item.active.geo-page { border-left-color: var(--accent-geo); }
-.nav-item.active.ai-page { border-left-color: var(--accent-ai); }
-
-.nav-item .icon {
-  width: 20px;
-  text-align: center;
-  font-size: 14px;
-  flex-shrink: 0;
-}
-
-.nav-item .badge {
-  font-size: 10px;
-  padding: 1px 6px;
-  border-radius: 10px;
-  margin-left: auto;
-  flex-shrink: 0;
-}
-
-.badge-seo { background: rgba(14,165,233,0.15); color: var(--accent-seo); }
-.badge-geo { background: rgba(139,92,246,0.15); color: var(--accent-geo); }
-.badge-ai { background: rgba(249,115,22,0.15); color: var(--accent-ai); }
-
-/* ===== Hamburger ===== */
-.hamburger {
-  display: none;
-  position: fixed;
-  top: 16px;
-  left: 16px;
-  z-index: 200;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-primary);
-  font-size: 18px;
-  transition: all var(--transition);
-}
-
-.hamburger:hover { background: var(--bg-card-hover); }
-
-.sidebar-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  z-index: 99;
-}
-
-/* ===== Main Content ===== */
-.main-content {
-  margin-left: var(--sidebar-width);
-  min-height: 100vh;
-  position: relative;
-  z-index: 1;
-}
-
-.page {
-  display: none;
-  padding: 60px 48px 80px;
-  max-width: 900px;
-  animation: fadeIn 0.4s ease;
-}
-
-.page.active { display: block; }
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ===== Typography ===== */
-.section-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  padding: 4px 12px;
-  border-radius: 20px;
-  margin-bottom: 16px;
-}
-
-.tag-seo { background: rgba(14,165,233,0.12); color: var(--accent-seo); }
-.tag-geo { background: rgba(139,92,246,0.12); color: var(--accent-geo); }
-.tag-ai { background: rgba(249,115,22,0.12); color: var(--accent-ai); }
-
-.page-title {
-  font-size: 36px;
-  font-weight: 800;
-  letter-spacing: -1px;
-  line-height: 1.2;
-  margin-bottom: 12px;
-}
-
-.page-subtitle {
-  font-size: 17px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 40px;
-}
-
-h2 {
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: -0.5px;
-  margin: 40px 0 16px;
-  color: var(--text-primary);
-}
-
-h3 {
-  font-size: 18px;
-  font-weight: 600;
-  margin: 28px 0 12px;
-  color: var(--text-primary);
-}
-
-h4 {
-  font-size: 15px;
-  font-weight: 600;
-  margin: 20px 0 8px;
-  color: var(--text-secondary);
-}
-
-p {
-  font-size: 15px;
-  color: var(--text-secondary);
-  margin-bottom: 16px;
-  line-height: 1.8;
-}
-
-/* ===== Cards ===== */
-.card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-md);
-  padding: 24px;
-  margin-bottom: 20px;
-  transition: all var(--transition);
-}
-
-.card:hover {
-  background: var(--bg-card-hover);
-  border-color: rgba(255,255,255,0.12);
-}
-
-.card-seo { border-left: 3px solid var(--accent-seo); }
-.card-geo { border-left: 3px solid var(--accent-geo); }
-.card-ai { border-left: 3px solid var(--accent-ai); }
-
-.card-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  margin-bottom: 12px;
-}
-
-.card-icon-seo { background: rgba(14,165,233,0.12); color: var(--accent-seo); }
-.card-icon-geo { background: rgba(139,92,246,0.12); color: var(--accent-geo); }
-.card-icon-ai { background: rgba(249,115,22,0.12); color: var(--accent-ai); }
-
-.card h3 { margin-top: 0; }
-
-/* ===== Stats / Metrics ===== */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 16px;
-  margin: 24px 0;
-}
-
-.stat-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-md);
-  padding: 20px;
-  text-align: center;
-}
-
-.stat-value {
-  font-size: 32px;
-  font-weight: 800;
-  letter-spacing: -1px;
-  line-height: 1;
-}
-
-.stat-value.seo { color: var(--accent-seo); }
-.stat-value.geo { color: var(--accent-geo); }
-.stat-value.ai { color: var(--accent-ai); }
-
-.stat-label {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-top: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-/* ===== Lists ===== */
-ul, ol {
-  margin: 12px 0 20px;
-  padding-left: 24px;
-  color: var(--text-secondary);
-  font-size: 15px;
-  line-height: 1.8;
-}
-
-li { margin-bottom: 6px; }
-
-ul li::marker { color: var(--accent-seo); }
-.geo-list li::marker { color: var(--accent-geo); }
-
-.checklist li {
-  list-style: none;
-  padding-left: 28px;
-  position: relative;
-}
-
-.checklist li::before {
-  content: '\f00c';
-  font-family: 'Font Awesome 6 Free';
-  font-weight: 900;
-  position: absolute;
-  left: 0;
-  color: var(--accent-seo);
-  font-size: 12px;
-}
-
-/* ===== Tags / Chips ===== */
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 12px 0;
-}
-
-.tag {
-  font-size: 12px;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-weight: 500;
-}
-
-.tag-seo { background: rgba(14,165,233,0.1); color: var(--accent-seo); border: 1px solid rgba(14,165,233,0.2); }
-.tag-geo { background: rgba(139,92,246,0.1); color: var(--accent-geo); border: 1px solid rgba(139,92,246,0.2); }
-.tag-ai { background: rgba(249,115,22,0.1); color: var(--accent-ai); border: 1px solid rgba(249,115,22,0.2); }
-
-/* ===== Table of Contents ===== */
-.toc-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin: 24px 0;
-}
-
-.toc-item {
-  background: var(--bg-card);
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-md);
-  padding: 16px 20px;
-  cursor: pointer;
-  transition: all var(--transition);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.toc-item:hover {
-  background: var(--bg-card-hover);
-  border-color: rgba(255,255,255,0.12);
-  transform: translateY(-2px);
-}
-
-.toc-num {
-  font-size: 20px;
-  font-weight: 800;
-  opacity: 0.3;
-  flex-shrink: 0;
-  width: 28px;
-}
-
-.toc-text {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-primary);
-}
-
-.toc-desc {
-  font-size: 11px;
-  color: var(--text-muted);
-  margin-top: 2px;
-}
-
-/* ===== Tables ===== */
-.table-wrap {
-  overflow-x: auto;
-  margin: 20px 0;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-card);
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
-}
-
-thead th {
-  background: rgba(255,255,255,0.04);
-  padding: 12px 16px;
-  text-align: left;
-  font-weight: 600;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--text-secondary);
-  border-bottom: 1px solid var(--border-card);
-}
-
-tbody td {
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--border-subtle);
-  color: var(--text-secondary);
-}
-
-tbody tr:last-child td { border-bottom: none; }
-
-tbody tr:hover { background: rgba(255,255,255,0.02); }
-
-/* ===== Code blocks ===== */
-code {
-  font-family: 'SF Mono', 'Fira Code', monospace;
-  font-size: 13px;
-  background: rgba(255,255,255,0.06);
-  padding: 2px 8px;
-  border-radius: 4px;
-  color: var(--accent-seo);
-}
-
-pre {
-  background: rgba(0,0,0,0.3);
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-md);
-  padding: 20px;
-  overflow-x: auto;
-  margin: 16px 0;
-  font-size: 13px;
-  line-height: 1.6;
-}
-
-pre code {
-  background: none;
-  padding: 0;
-  color: var(--text-secondary);
-}
-
-/* ===== Hero section (cover page) ===== */
-.hero {
-  min-height: calc(100vh - 120px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.hero h1 {
-  font-size: 56px;
-  font-weight: 800;
-  letter-spacing: -2px;
-  line-height: 1.1;
-  margin-bottom: 16px;
-}
-
-.hero h1 .gradient {
-  background: linear-gradient(135deg, var(--accent-seo) 0%, var(--accent-geo) 50%, var(--accent-ai) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.hero-desc {
-  font-size: 18px;
-  color: var(--text-secondary);
-  max-width: 600px;
-  line-height: 1.7;
-  margin-bottom: 32px;
-}
-
-.hero-meta {
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-
-.hero-meta span {
-  font-size: 13px;
-  color: var(--text-muted);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* ===== Divider ===== */
-.divider {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--border-card), transparent);
-  margin: 48px 0;
-}
-
-/* ===== Highlight Boxes ===== */
-.highlight {
-  border-radius: var(--radius-md);
-  padding: 20px 24px;
-  margin: 20px 0;
-  border: 1px solid;
-}
-
-.highlight-seo { background: rgba(14,165,233,0.05); border-color: rgba(14,165,233,0.15); }
-.highlight-geo { background: rgba(139,92,246,0.05); border-color: rgba(139,92,246,0.15); }
-.highlight-ai { background: rgba(249,115,22,0.05); border-color: rgba(249,115,22,0.15); }
-
-.highlight p:last-child { margin-bottom: 0; }
-
-/* ===== Two column layout ===== */
-.cols-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin: 20px 0;
-}
-
-@media (max-width: 768px) {
-  .cols-2 { grid-template-columns: 1fr; }
-}
-
-/* ===== Progress / Priority bars ===== */
-.priority-bar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 8px 0;
-}
-
-.priority-track {
-  flex: 1;
-  height: 6px;
-  background: rgba(255,255,255,0.06);
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.priority-fill {
-  height: 100%;
-  border-radius: 3px;
-  transition: width 1s ease;
-}
-
-.priority-fill.p1 { background: linear-gradient(90deg, var(--accent-ai), #f59e0b); width: 100%; }
-.priority-fill.p2 { background: linear-gradient(90deg, var(--accent-seo), var(--accent-geo)); width: 75%; }
-.priority-fill.p3 { background: var(--accent-geo); width: 50%; }
-.priority-fill.p4 { background: var(--text-muted); width: 25%; }
-
-/* ===== Responsive ===== */
-@media (max-width: 1024px) {
-  .page { padding: 40px 32px 60px; }
-  .hero h1 { font-size: 42px; }
-  .toc-grid { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 768px) {
-  .sidebar {
-    transform: translateX(-100%);
-  }
-  .sidebar.open {
-    transform: translateX(0);
-  }
-  .sidebar-overlay.open {
-    display: block;
-  }
-  .hamburger {
-    display: flex;
-  }
-  .main-content {
-    margin-left: 0;
-  }
-  .page { padding: 60px 20px; }
-  .hero h1 { font-size: 32px; }
-  .page-title { font-size: 28px; }
-  .stats-grid { grid-template-columns: 1fr 1fr; }
-  .hero-meta { flex-direction: column; gap: 8px; }
-}
-
-/* ===== Progress bar animation ===== */
-@keyframes fillBar {
-  from { width: 0; }
-}
-.priority-fill {
-  animation: fillBar 1.5s ease forwards;
-}
-
-/* ===== Tool grid ===== */
-.tool-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 12px;
-  margin: 16px 0;
-}
-
-.tool-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-sm);
-  padding: 14px 16px;
-  transition: all var(--transition);
-}
-
-.tool-card:hover {
-  background: var(--bg-card-hover);
-  transform: translateY(-2px);
-}
-
-.tool-name {
-  font-weight: 600;
-  font-size: 14px;
-  margin-bottom: 2px;
-}
-
-.tool-desc {
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-/* ===== Print styles ===== */
-@media print {
-  .sidebar { display: none; }
-  .main-content { margin-left: 0; }
-  .page { display: block !important; page-break-after: always; }
-}
-
-/* ===== Phase badges for action items ===== */
-.phase-tag {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 2px 10px;
-  border-radius: 4px;
-  margin-right: 8px;
-}
-.phase-p0 { background: #dc2626; color: #fff; }
-.phase-p1 { background: #f97316; color: #fff; }
-.phase-p2 { background: #0ea5e9; color: #fff; }
-.phase-p3 { background: #8b5cf6; color: #fff; }
-.phase-p4 { background: #64748b; color: #fff; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>研究报告 — AI 产品增长手册 &amp; 技术研究合集</title>
+    <meta name="description" content="AI 产品增长与技术研究的深度报告合集，涵盖 SEO、GEO、增长策略等核心主题。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --accent: #60a5fa;
+            --accent-dim: #3b82f6;
+            --accent-glow: rgba(96, 165, 250, 0.15);
+            --surface: #111318;
+            --surface-raised: #191c24;
+            --surface-card: #1e212a;
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-accent: rgba(96, 165, 250, 0.2);
+            --text-primary: #f1f3f6;
+            --text-secondary: #8b8fa3;
+            --text-muted: #5c6070;
+            --tag-bg: rgba(96, 165, 250, 0.1);
+            --tag-text: #93c5fd;
+        }
+
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--surface);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .display-font {
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        /* Subtle grid background */
+        .bg-grid {
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        /* Header gradient */
+        .header-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1a1f2e 40%, #0f1923 100%);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        /* Accent glow for headlines */
+        .accent-glow {
+            text-shadow: 0 0 40px rgba(96, 165, 250, 0.1);
+        }
+
+        /* Card */
+        .report-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+        }
+
+        .report-card:hover {
+            border-color: var(--border-accent);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px var(--accent-glow);
+        }
+
+        /* Cover image area */
+        .card-cover {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #1a1f3c 100%);
+        }
+
+        .card-cover::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 60%, var(--surface-card) 100%);
+        }
+
+        .card-cover .cover-art {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            opacity: 0.12;
+        }
+
+        .card-cover .cover-pattern {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 30% 40%, rgba(96,165,250,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(56,189,248,0.06) 0%, transparent 40%);
+        }
+
+        .card-cover .cover-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            z-index: 2;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            background: var(--tag-bg);
+            color: var(--tag-text);
+            transition: all 0.2s;
+            cursor: default;
+        }
+
+        .tag:hover {
+            background: rgba(96, 165, 250, 0.18);
+        }
+
+        /* Meta items */
+        .meta-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* Search bar */
+        .search-wrapper {
+            position: relative;
+        }
+
+        .search-wrapper i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 16px;
+            pointer-events: none;
+            transition: color 0.2s;
+        }
+
+        .search-wrapper input {
+            width: 100%;
+            background: var(--surface-raised);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 14px 16px 14px 48px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-wrapper input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-wrapper input:focus {
+            border-color: var(--accent-dim);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        .search-wrapper:focus-within i {
+            color: var(--accent);
+        }
+
+        /* Filter buttons */
+        .filter-btn {
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            cursor: pointer;
+            transition: all 0.25s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .filter-btn:hover {
+            border-color: rgba(255,255,255,0.15);
+            color: var(--text-primary);
+        }
+
+        .filter-btn.active {
+            background: var(--tag-bg);
+            border-color: var(--border-accent);
+            color: var(--tag-text);
+        }
+
+        /* Read more link */
+        .read-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.25s;
+        }
+
+        .read-link:hover {
+            gap: 12px;
+            color: #93c5fd;
+        }
+
+        .read-link i {
+            font-size: 12px;
+            transition: transform 0.25s;
+        }
+
+        .read-link:hover i {
+            transform: translateX(4px);
+        }
+
+        /* Divider */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-subtle), transparent);
+            margin: 32px 0;
+        }
+
+        /* Empty state */
+        .empty-state {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .empty-state.visible {
+            display: flex;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.4;
+        }
+
+        /* Stats counter */
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Scrollable tags on mobile */
+        .tags-scroll {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding-bottom: 4px;
+        }
+
+        .tags-scroll::-webkit-scrollbar { display: none; }
+
+        /* Animation */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-in {
+            animation: fadeUp 0.6s ease-out forwards;
+        }
+
+        .animate-in-delay-1 { animation-delay: 0.1s; }
+        .animate-in-delay-2 { animation-delay: 0.2s; }
+        .animate-in-delay-3 { animation-delay: 0.3s; }
+
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .card-cover { height: 160px; }
+            .stat-number { font-size: 28px; }
+            header h1 { font-size: 2rem !important; }
+        }
+    </style>
 </head>
 <body>
 
-<!-- ===== Hamburger (mobile) ===== -->
-<button class="hamburger" id="hamburger" aria-label="Toggle navigation">
-  <i class="fas fa-bars"></i>
-</button>
-
-<!-- ===== Sidebar Overlay (mobile) ===== -->
-<div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-<!-- ===== Sidebar Navigation ===== -->
-<aside class="sidebar" id="sidebar">
-  <div class="sidebar-brand">
-    <h1>SEO &amp; GEO 优化指南</h1>
-    <div class="subtitle">AI 产品增长手册</div>
-  </div>
-  <nav class="sidebar-nav">
-    <a class="nav-item active" data-page="page-home"><span class="icon">🏠</span>封面 / Home</a>
-    <a class="nav-item" data-page="page-toc"><span class="icon">📋</span>目录</a>
-
-    <a class="nav-item seo-page" data-page="page-seo-tech">
-      <span class="icon"><i class="fas fa-code" style="color:var(--accent-seo)"></i></span>
-      SEO: 技术层
-      <span class="badge badge-seo">SEO</span>
-    </a>
-    <a class="nav-item seo-page" data-page="page-seo-content">
-      <span class="icon"><i class="fas fa-pen-fancy" style="color:var(--accent-seo)"></i></span>
-      SEO: 内容层
-      <span class="badge badge-seo">SEO</span>
-    </a>
-    <a class="nav-item seo-page" data-page="page-sge">
-      <span class="icon"><i class="fas fa-robot" style="color:var(--accent-seo)"></i></span>
-      SGE / AI Overviews
-      <span class="badge badge-seo">SEO</span>
-    </a>
-
-    <a class="nav-item geo-page" data-page="page-geo-overview">
-      <span class="icon"><i class="fas fa-globe" style="color:var(--accent-geo)"></i></span>
-      GEO: 概述
-      <span class="badge badge-geo">GEO</span>
-    </a>
-    <a class="nav-item geo-page" data-page="page-geo-content">
-      <span class="icon"><i class="fas fa-file-alt" style="color:var(--accent-geo)"></i></span>
-      GEO: 内容策略
-      <span class="badge badge-geo">GEO</span>
-    </a>
-    <a class="nav-item geo-page" data-page="page-geo-tech">
-      <span class="icon"><i class="fas fa-cogs" style="color:var(--accent-geo)"></i></span>
-      GEO: 技术实现
-      <span class="badge badge-geo">GEO</span>
-    </a>
-    <a class="nav-item geo-page" data-page="page-geo-metrics">
-      <span class="icon"><i class="fas fa-chart-line" style="color:var(--accent-geo)"></i></span>
-      GEO: 度量 &amp; 工具
-      <span class="badge badge-geo">GEO</span>
-    </a>
-
-    <a class="nav-item ai-page" data-page="page-ai-products">
-      <span class="icon"><i class="fas fa-brain" style="color:var(--accent-ai)"></i></span>
-      AI 产品专属策略
-      <span class="badge badge-ai">AI</span>
-    </a>
-    <a class="nav-item ai-page" data-page="page-cases">
-      <span class="icon"><i class="fas fa-flask" style="color:var(--accent-ai)"></i></span>
-      案例研究
-      <span class="badge badge-ai">AI</span>
-    </a>
-    <a class="nav-item ai-page" data-page="page-action">
-      <span class="icon"><i class="fas fa-check-double" style="color:var(--accent-ai)"></i></span>
-      实操清单
-      <span class="badge badge-ai">AI</span>
-    </a>
-  </nav>
-</aside>
-
-<!-- ===== Main Content Area ===== -->
-<main class="main-content">
-
-<!-- ============================================================ -->
-<!-- PAGE 1: HOME / COVER -->
-<!-- ============================================================ -->
-<section class="page active" id="page-home">
-  <div class="hero">
-    <div class="section-tag tag-seo"><i class="fas fa-book-open"></i> 综合指南</div>
-    <h1><span class="gradient">SEO &amp; GEO</span><br>AI 产品增长手册</h1>
-    <p class="hero-desc">
-      从传统搜索引擎优化到生成式引擎优化的完整转型指南。涵盖技术 SEO、内容策略、Google SGE 应对、GEO 方法论，以及 AI 产品专属的增长策略。
-    </p>
-    <div class="hero-meta">
-      <span><i class="far fa-file-alt"></i> 12 个章节</span>
-      <span><i class="fas fa-tachometer-alt"></i> 约 30 分钟阅读</span>
-      <span><i class="fas fa-sync-alt"></i> 持续更新</span>
-      <span><i class="fas fa-tag"></i> v1.0</span>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- PAGE 2: TABLE OF CONTENTS -->
-<!-- ============================================================ -->
-<section class="page" id="page-toc">
-  <div class="section-tag tag-geo"><i class="fas fa-list"></i> 导航</div>
-  <h1 class="page-title">目录</h1>
-  <p class="page-subtitle">本手册共 12 个章节，覆盖 SEO 与 GEO 的完整知识体系。</p>
-
-  <div class="toc-grid">
-    <div class="toc-item" data-target="page-home">
-      <span class="toc-num">00</span>
-      <div><div class="toc-text">封面 / Home</div><div class="toc-desc">概览与手册介绍</div></div>
-    </div>
-    <div class="toc-item" data-target="page-toc">
-      <span class="toc-num">01</span>
-      <div><div class="toc-text">目录</div><div class="toc-desc">当前页面 — 结构索引</div></div>
-    </div>
-    <div class="toc-item" data-target="page-seo-tech">
-      <span class="toc-num">02</span>
-      <div><div class="toc-text">SEO: 技术层</div><div class="toc-desc">抓取、索引、Core Web Vitals、结构化数据</div></div>
-    </div>
-    <div class="toc-item" data-target="page-seo-content">
-      <span class="toc-num">03</span>
-      <div><div class="toc-text">SEO: 内容层</div><div class="toc-desc">语义搜索、主题集群、E-E-A-T、实体优化</div></div>
-    </div>
-    <div class="toc-item" data-target="page-sge">
-      <span class="toc-num">04</span>
-      <div><div class="toc-text">SGE / AI Overviews</div><div class="toc-desc">Google SGE 应对策略</div></div>
-    </div>
-    <div class="toc-item" data-target="page-geo-overview">
-      <span class="toc-num">05</span>
-      <div><div class="toc-text">GEO: 概述</div><div class="toc-desc">GEO 定义、重要性、AI 引擎生态</div></div>
-    </div>
-    <div class="toc-item" data-target="page-geo-content">
-      <span class="toc-num">06</span>
-      <div><div class="toc-text">GEO: 内容策略</div><div class="toc-desc">Answer-first 写作、事实密度、声明式内容</div></div>
-    </div>
-    <div class="toc-item" data-target="page-geo-tech">
-      <span class="toc-num">07</span>
-      <div><div class="toc-text">GEO: 技术实现</div><div class="toc-desc">语义 HTML、结构化数据、RAG 管道优化</div></div>
-    </div>
-    <div class="toc-item" data-target="page-geo-metrics">
-      <span class="toc-num">08</span>
-      <div><div class="toc-text">GEO: 度量 &amp; 工具</div><div class="toc-desc">Citation Rate、工具推荐</div></div>
-    </div>
-    <div class="toc-item" data-target="page-ai-products">
-      <span class="toc-num">09</span>
-      <div><div class="toc-text">AI 产品专属策略</div><div class="toc-desc">双重身份、用户意图、程序化 SEO</div></div>
-    </div>
-    <div class="toc-item" data-target="page-cases">
-      <span class="toc-num">10</span>
-      <div><div class="toc-text">案例研究</div><div class="toc-desc">真实数据与效果分析</div></div>
-    </div>
-    <div class="toc-item" data-target="page-action">
-      <span class="toc-num">11</span>
-      <div><div class="toc-text">实操清单</div><div class="toc-desc">优先级排序、执行框架</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- PAGE 3: SEO - TECHNICAL -->
-<!-- ============================================================ -->
-<section class="page" id="page-seo-tech">
-  <div class="section-tag tag-seo"><i class="fas fa-code"></i> SEO 基础 · 技术层</div>
-  <h1 class="page-title">SEO: 技术层优化</h1>
-  <p class="page-subtitle">确保搜索引擎爬虫能够高效抓取、理解、索引你的内容。这是所有 SEO 工作的基石。</p>
-
-  <div class="stats-grid">
-    <div class="stat-card"><div class="stat-value seo">2.5s</div><div class="stat-label">LCP 目标</div></div>
-    <div class="stat-card"><div class="stat-value seo">200ms</div><div class="stat-label">INP 目标</div></div>
-    <div class="stat-card"><div class="stat-value seo">0.1</div><div class="stat-label">CLS 目标</div></div>
-    <div class="stat-card"><div class="stat-value seo">70%+</div><div class="stat-label">抓取预算影响</div></div>
-  </div>
-
-  <h2>🤖 AI 爬虫管理</h2>
-  <p>随着 AI 搜索引擎的崛起，需要精准控制各类 AI 爬虫的访问行为。在 robots.txt 中明确管理以下关键爬虫：</p>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>爬虫 User-Agent</th><th>来源</th><th>推荐策略</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><code>GPTBot</code></td><td>OpenAI (ChatGPT Search)</td><td>允许抓取内容页面，限制工具/API 页面</td></tr>
-        <tr><td><code>PerplexityBot</code></td><td>Perplexity AI</td><td>允许抓取，配合 <code>Disallow: /api/</code></td></tr>
-        <tr><td><code>ClaudeBot</code></td><td>Anthropic (Claude)</td><td>允许主要内容路径</td></tr>
-        <tr><td><code>Google-Extended</code></td><td>Google (AI Overviews / Gemini)</td><td>必须允许——影响 AI Overviews 引用</td></tr>
-        <tr><td><code>Applebot-Extended</code></td><td>Apple Intelligence</td><td>推荐允许</td></tr>
-        <tr><td><code>Bytespider</code></td><td>ByteDance</td><td>按需放行或限制</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="highlight highlight-seo">
-    <p><strong>💡 最佳实践：</strong>不要一刀切屏蔽所有 AI 爬虫。选择性开放核心内容路径，在 <code>robots.txt</code> 中使用 <code>Allow</code> 指令精确控制。</p>
-  </div>
-
-  <div class="divider"></div>
-
-  <h2>🗺️ XML Sitemaps</h2>
-  <p>Sitemap 是搜索引擎发现内容的路线图。适用于 AI 爬虫和传统爬虫。</p>
-  <ul>
-    <li><strong>分片管理</strong> — 按内容类型拆分为多个 Sitemap（文章、工具页、FAQ、产品页等），通过 Sitemap Index 汇总</li>
-    <li><strong>优先标注</strong> — 使用 <code>&lt;lastmod&gt;</code> 告诉爬虫内容新鲜度；高价值页面设 <code>&lt;priority&gt;</code></li>
-    <li><strong>图片/视频 Sitemap</strong> — 为富媒体内容创建专用 Sitemap，提升在 AI 引擎中的可见性</li>
-    <li><strong>提交到 Search Console</strong> — 同时在 robots.txt 中通过 <code>Sitemap: https://example.com/sitemap.xml</code> 声明</li>
-  </ul>
-
-  <div class="divider"></div>
-
-  <h2>⚡ Core Web Vitals</h2>
-  <p>Google 的核心网页指标是排名信号，也影响 AI Overviews 的调用优先级。AI 产品特别需要注意：</p>
-  <div class="cols-2">
-    <div class="card card-seo">
-      <div class="card-icon card-icon-seo"><i class="fas fa-hourglass-start"></i></div>
-      <h3>LCP &lt; 2.5s</h3>
-      <p>最大内容绘制。AI 工具页的首屏加载尤为关键。优化服务器响应时间、使用 CDN、预加载关键资源。</p>
-    </div>
-    <div class="card card-seo">
-      <div class="card-icon card-icon-seo"><i class="fas fa-hand-pointer"></i></div>
-      <h3>INP &lt; 200ms</h3>
-      <p>交互到下次绘制。AI 对话式界面的输入响应时间至关重要。避免长任务阻塞主线程。</p>
-    </div>
-    <div class="card card-seo">
-      <div class="card-icon card-icon-seo"><i class="fas fa-arrows-alt-h"></i></div>
-      <h3>CLS &lt; 0.1</h3>
-      <p>累积布局偏移。AI 生成内容流式输出时尤其容易导致 CLS 问题。预留占位空间。</p>
-    </div>
-    <div class="card card-seo">
-      <div class="card-icon card-icon-seo"><i class="fas fa-tachometer-alt"></i></div>
-      <h3>TBT &lt; 50ms</h3>
-      <p>总阻塞时间。JS 框架（React/Next.js）应用需特别注意代码分割和懒加载。</p>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <h2>📱 Mobile-First Indexing</h2>
-  <p>Google 主要使用移动版内容进行索引和排名。确保移动端与桌面端内容一致，移动端加载速度优化。</p>
-  <div class="highlight highlight-seo">
-    <p><strong>检查清单：</strong>响应式设计 ✓ | 视口 meta 标签 ✓ | 字体大小可读 ✓ | 触摸目标 ≥ 48px ✓ | 无横向滚动 ✓ | 移动端 LCP 优化 ✓</p>
-  </div>
-
-  <div class="divider"></div>
-
-  <h2>🏗️ 结构化数据 (Schema.org)</h2>
-  <p>结构化数据帮助搜索引擎理解内容语境，对于 AI 引擎的 RAG 检索尤为关键。</p>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>Schema 类型</th><th>用途</th><th>GEO 重要性</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><code>Article</code></td><td>博客文章、新闻内容</td><td>⭐⭐⭐⭐</td></tr>
-        <tr><td><code>FAQPage</code></td><td>问答对，AI 引擎高频率提取</td><td>⭐⭐⭐⭐⭐</td></tr>
-        <tr><td><code>HowTo</code></td><td>教程/指南类内容</td><td>⭐⭐⭐⭐⭐</td></tr>
-        <tr><td><code>QAPage</code></td><td>问答社区、讨论帖</td><td>⭐⭐⭐⭐</td></tr>
-        <tr><td><code>Product</code></td><td>AI 产品/工具页面</td><td>⭐⭐⭐⭐</td></tr>
-        <tr><td><code>Organization</code></td><td>品牌信息、标识</td><td>⭐⭐⭐</td></tr>
-        <tr><td><code>SoftwareApplication</code></td><td>AI 软件产品</td><td>⭐⭐⭐⭐⭐</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="divider"></div>
-
-  <h2>🔗 网站架构</h2>
-  <ul>
-    <li><strong>扁平层级</strong> — 所有重要页面距离首页不超过 3 次点击</li>
-    <li><strong>站内链接策略</strong> — 相关文章通过上下文内链连接，传递主题相关性信号</li>
-    <li><strong>URL 结构</strong> — 简洁、包含关键词、使用连字符、小写字母：<code>/guides/seo-ai-products</code></li>
-    <li><strong>面包屑导航</strong> — 提供 BreadcrumbList Schema 增强理解</li>
-  </ul>
-
-  <div class="divider"></div>
-
-  <h2>🖥️ SSR / SSG 策略</h2>
-  <p>AI 产品通常使用 React/Vue 等 JS 框架，对搜索引擎不友好。关键策略：</p>
-  <ul>
-    <li><strong>预渲染 (Pre-rendering)</strong> — 对内容页面使用 SSG/SSR 生成静态 HTML</li>
-    <li><strong>Hybrid 架构</strong> — 工具页用客户端渲染（保留交互性），内容页用服务端渲染</li>
-    <li><strong>Next.js / Nuxt</strong> — 利用 ISR (Incremental Static Regeneration) 平衡新鲜度和性能</li>
-    <li><strong>动态渲染</strong> — 对爬虫提供预渲染版本，对用户提供 SPA 体验</li>
-  </ul>
-</section>
-
-<!-- ============================================================ -->
-<!-- PAGE 4: SEO - CONTENT -->
-<!-- ============================================================ -->
-<section class="page" id="page-seo-content">
-  <div class="section-tag tag-seo"><i class="fas fa-pen-fancy"></i> SEO 进阶 · 内容层</div>
-  <h1 class="page-title">SEO: 内容层优化</h1>
-  <p class="page-subtitle">超越关键词匹配，进入语义搜索与实体优化的时代。</p>
-
-  <h2>🔍 语义搜索与意图匹配</h2>
-  <p>现代搜索引擎使用 NLP 理解查询背后的真实意图，而非简单的关键词匹配。内容优化需要从关键词映射转向意图满足：</p>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>意图类型</th><th>查询示例</th><th>内容策略</th></tr></thead>
-      <tbody>
-        <tr><td>信息型</td><td>"什么是 GEO"</td><td>定义 + 深度解释 + 权威引用</td></tr>
-        <tr><td>导航型</td><td>"ChatGPT 登录"</td><td>品牌页面 + 快捷入口</td></tr>
-        <tr><td>商业调查</td><td>"最佳 AI 写作工具 2025"</td><td>对比评测 + 功能列表 + 价格表</td></tr>
-        <tr><td>交易型</td><td>"购买 SEO 工具"</td><td>产品页 + 购买入口 + 信任信号</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="divider"></div>
-
-  <h2>📚 主题集群 (Topic Clusters)</h2>
-  <div class="highlight highlight-seo">
-    <p><strong>核心模型：</strong>一个 Pillar Page（核心支柱页）+ 多个 Cluster Content（集群内容页）通过站内链接互相连接，围绕核心主题构建权威信号。</p>
-  </div>
-  <p><strong>实施步骤：</strong></p>
-  <ol>
-    <li>确定核心主题（如 "AI SEO"）</li>
-    <li>创建 2000+ 词的支柱页，覆盖主题全貌</li>
-    <li>围绕子话题创建 10-20 篇集群文章</li>
-    <li>所有集群文章链接回支柱页，支柱页链接到集群文章</li>
-    <li>持续监控关键词排名和集群覆盖度</li>
-  </ol>
-
-  <div class="divider"></div>
-
-  <h2>⭐ Google E-E-A-T 框架</h2>
-  <p>Google 的评估体系，影响内容排名的关键框架，尤其对 YMYL (Your Money or Your Life) 领域。</p>
-  <div class="stats-grid">
-    <div class="stat-card"><div class="stat-value seo">E</div><div class="stat-label">Experience 经验</div></div>
-    <div class="stat-card"><div class="stat-value seo">E</div><div class="stat-label">Expertise 专业</div></div>
-    <div class="stat-card"><div class="stat-value seo">A</div><div class="stat-label">Authority 权威</div></div>
-    <div class="stat-card"><div class="stat-value seo">T</div><div class="stat-label">Trust 信任</div></div>
-  </div>
-  <h4>实践要点</h4>
-  <ul>
-    <li><strong>经验 (Experience)</strong> — 展示第一手实践：产品评测截图、实际使用案例、个人经验分享</li>
-    <li><strong>专业 (Expertise)</strong> — 作者简介、资质展示、专业背景链接</li>
-    <li><strong>权威 (Authoritativeness)</strong> — 外部引用链接、行业引用、品牌提及、媒体曝光</li>
-    <li><strong>信任 (Trustworthiness)</strong> — 准确性、透明度、信息源引用、隐私/安全信息展示</li>
-  </ul>
-
-  <div class="divider"></div>
-
-  <h2>🧠 实体优化与 Knowledge Graph</h2>
-  <p>实体优化帮助搜索引擎理解你是谁、做什么、和相关概念的关联。</p>
-  <ul>
-    <li><strong>品牌实体</strong> — 在各种平台上使用一致的名称、Logo、描述</li>
-    <li><strong>同义词 &amp; 变体</strong> — 在内容中自然使用品牌/产品的别名和缩写</li>
-    <li><strong>实体关联</strong> — 在内容中建立与行业概念、竞争对手、相关技术的关联</li>
-    <li><strong>Google Knowledge Panel</strong> — 通过维基百科 + 结构化数据 + 权威引用激活</li>
-  </ul>
-
-  <div class="divider"></div>
-
-  <h2>⭐ Featured Snippets 优化</h2>
-  <p>Featured Snippets（精选摘要）是 Google 搜索结果中的"位置 0"，也是 AI Overviews 的重要数据来源：</p>
-  <div class="cols-2">
-    <div class="card card-seo">
-      <div class="card-icon card-icon-seo"><i class="fas fa-paragraph"></i></div>
-      <h3>段落式</h3>
-      <p>40-60 字直接回答问题置于段落开头。使用 <code>&lt;p&gt;</code> + 加粗关键句。</p>
-    </div>
-    <div class="card card-seo">
-      <div class="card-icon card-icon-seo"><i class="fas fa-list-ul"></i></div>
-      <h3>列表式</h3>
-      <p>"步骤"或"清单"类内容使用 <code>&lt;ol&gt;</code>/<code>&lt;ul&gt;</code> 格式。</p>
-    </div>
-    <div class="card card-seo">
-      <div class="card-icon card-icon-seo"><i class="fas fa-table"></i></div>
-      <h3>表格式</h3>
-      <p>对比类数据使用 <code>&lt;table&gt;</code> 呈现。</p>
-    </div>
-    <div class="card card-seo">
-      <div class="card-icon card-icon-seo"><i class="fas fa-video"></i></div>
-      <h3>视频式</h3>
-      <p>关键步骤视频 + 时间戳标记。</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- PAGE 5: SGE / AI OVERVIEWS -->
-<!-- ============================================================ -->
-<section class="page" id="page-sge">
-  <div class="section-tag tag-seo"><i class="fas fa-robot"></i> SEO 新战场</div>
-  <h1 class="page-title">Google SGE / AI Overviews</h1>
-  <p class="page-subtitle">生成式搜索体验如何改变流量格局，以及如何让你的内容被 AI 选中。</p>
-
-  <div class="stats-grid">
-    <div class="stat-card"><div class="stat-value ai">65%+</div><div class="stat-label">零点击搜索</div></div>
-    <div class="stat-card"><div class="stat-value ai">37%</div><div class="stat-label">AI Overviews 出现率</div></div>
-    <div class="stat-card"><div class="stat-value ai">↑~86%</div><div class="stat-label">交易型搜索价值</div></div>
-    <div class="stat-card"><div class="stat-value ai">↓~40%</div><div class="stat-label">信息型流量</div></div>
-  </div>
-
-  <div class="divider"></div>
-
-  <h2>📊 AI Overviews 现状</h2>
-  <p>据 SparkToro 数据，超过 65% 的 Google 搜索现在为零点击搜索。AI Overviews 主要出现在信息型查询中（约 37% 的查询触发），尤其集中在 "What"、"Why"、"How" 类问题：</p>
-  <ul>
-    <li><strong>高触发率</strong> — 健康、科技、金融领域的 How-to 和定义类查询</li>
-    <li><strong>低触发率</strong> — 导航型 (导航)、交易型 (购买) 查询</li>
-    <li><strong>发展趋势</strong> — AI Overviews 覆盖率持续扩大，更多商业类查询开始触发</li>
-  </ul>
-
-  <div class="divider"></div>
-
-  <h2>🎯 如何被 AI Overviews 引用</h2>
-  <div class="card card-seo">
-    <div class="card-icon card-icon-seo"><i class="fas fa-bullseye"></i></div>
-    <h3>被引用的核心因素</h3>
-    <ul>
-      <li><strong>直接回答</strong> — 页面需清晰、直接地回答查询问题，避免绕圈子</li>
-      <li><strong>权威来源</strong> — 来自高权威域名的内容更易被引用</li>
-      <li><strong>结构化数据</strong> — FAQ、HowTo、QAPage Schema 显著提升提取概率</li>
-      <li><strong>内容新鲜度</strong> — AI Overviews 偏好近期更新或发布的内容</li>
-      <li><strong>引用来源</strong> — 页面内引用权威外部来源提升可信度</li>
-    </ul>
-  </div>
-
-  <div class="cols-2">
-    <div class="highlight highlight-seo">
-      <h4>策略调整</h4>
-      <p><strong>✅ 做：</strong></p>
-      <ul>
-        <li>交易型关键词内容 - 价值上升</li>
-        <li>品牌 + 产品对比内容</li>
-        <li>深层权威内容</li>
-        <li>Featured Snippets 优化</li>
-      </ul>
-    </div>
-    <div class="highlight highlight-ai">
-      <h4>停止 / 减少</h4>
-      <p><strong>❌ 不做：</strong></p>
-      <ul>
-        <li>纯信息型内容追求排名</li>
-        <li>AI 生成的低质内容泛发</li>
-        <li>忽略零点击趋势</li>
-        <li>只优化传统搜索不考虑 AI</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <h2>🚗 流量侵蚀应对策略</h2>
-  <div class="card card-seo">
-    <div class="card-icon card-icon-seo"><i class="fas fa-shield-alt"></i></div>
-    <h3>品牌护城河</h3>
-    <p>当 AI Overviews 侵蚀信息查询流量时，关键策略是建立品牌认知和直接流量：</p>
-    <ul>
-      <li><strong>品牌搜索增长</strong> — 通过品牌营销提升直接搜索量</li>
-      <li><strong>订阅/邮件列表</strong> — 建立第一方渠道，减少对搜索流量的依赖</li>
-      <li><strong>差异化内容</strong> — 提供 AI 无法轻易复制的原创数据、独家洞察、实操经验</li>
-      <li><strong>社区建设</strong> — 论坛、用户群、社交媒体形成品牌护城河</li>
-    </ul>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- PAGE 6: GEO - OVERVIEW -->
-<!-- ============================================================ -->
-<section class="page" id="page-geo-overview">
-  <div class="section-tag tag-geo"><i class="fas fa-globe"></i> GEO · 概述</div>
-  <h1 class="page-title">什么是 GEO？</h1>
-  <p class="page-subtitle">Generative Engine Optimization — 为 AI 生成的回答优化，让品牌在 ChatGPT、Perplexity、AI Overviews 等引擎中被引用。</p>
-
-  <div class="stats-grid">
-    <div class="stat-card"><div class="stat-value geo">156%</div><div class="stat-label">品牌引用提升</div></div>
-    <div class="stat-card"><div class="stat-value geo">35x</div><div class="stat-label">AI 流量增长</div></div>
-    <div class="stat-card"><div class="stat-value geo">7x</div><div class="stat-label">自然点击提升</div></div>
-    <div class="stat-card"><div class="stat-value geo">6+</div><div class="stat-label">主要 AI 引擎</div></div>
-  </div>
-
-  <div class="divider"></div>
-
-  <h2>🔬 GEO 的定义</h2>
-  <p>GEO (Generative Engine Optimization) 是一套优化实践，旨在提高品牌、产品或内容被 AI 生成的回答引用的概率。与传统 SEO 优化搜索排名不同，GEO 优化的是"被 AI 检索并作为信息来源引用"的能力。</p>
-
-  <div class="card card-geo">
-    <div class="card-icon card-icon-geo"><i class="fas fa-arrows-alt-h"></i></div>
-    <h3>SEO vs GEO：核心差异</h3>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>维度</th><th>SEO</th><th>GEO</th></tr></thead>
-        <tbody>
-          <tr><td>目标</td><td>排名第一页</td><td>被 AI 引用为源</td></tr>
-          <tr><td>受众</td><td>搜索引擎爬虫</td><td>LLM + RAG 管道</td></tr>
-          <tr><td>关键指标</td><td>CTR, Rankings, Traffic</td><td>Citation Rate, Brand Mention Share</td></tr>
-          <tr><td>内容偏好</td><td>关键词密度、外链</td><td>事实密度、答案格式、引用源</td></tr>
-          <tr><td>技术重点</td><td>可抓取性、索引率</td><td>语义 HTML、Schema 提取友好</td></tr>
-          <tr><td>评估方式</td><td>SERP 检查</td><td>AI 回答分析</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <h2>🌐 AI 引擎生态系统</h2>
-  <div class="cols-2">
-    <div class="card card-geo">
-      <div class="card-icon card-icon-geo"><i class="fab fa-chrome"></i></div>
-      <h3>Google AI Overviews</h3>
-      <p>最大用户基数。RAG 检索 + Gemini 生成。偏爱结构化数据和权威域名。</p>
-    </div>
-    <div class="card card-geo">
-      <div class="card-icon card-icon-geo"><i class="fab fa-openai"></i></div>
-      <h3>ChatGPT Search</h3>
-      <p>通过 Bing 索引 + 实时检索。偏好清晰的问答格式和 FAQ 数据。</p>
-    </div>
-    <div class="card card-geo">
-      <div class="card-icon card-icon-geo"><i class="fas fa-search"></i></div>
-      <h3>Perplexity</h3>
-      <p>引用最透明的 AI 引擎。显示引用来源，优化引用计数至关重要。</p>
-    </div>
-    <div class="card card-geo">
-      <div class="card-icon card-icon-geo"><i class="fas fa-comment"></i></div>
-      <h3>Claude (Anthropic)</h3>
-      <p>通过检索增强生成引用网页。偏好详细、权威的长篇内容。</p>
-    </div>
-    <div class="card card-geo">
-      <div class="card-icon card-icon-geo"><i class="fab fa-microsoft"></i></div>
-      <h3>Bing Copilot</h3>
-      <p>使用 Prometheus 模型 + GPT-4。偏好列表、结构化格式。</p>
-    </div>
-    <div class="card card-geo">
-      <div class="card-icon card-icon-geo"><i class="fab fa-apple"></i></div>
-      <h3>Apple Intelligence</h3>
-      <p>通过 AppleBot-Extended 爬取。需要 Applebot 可访问性。</p>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <h2>⚙️ RAG 管道 (Retrieval-Augmented Generation)</h2>
-  <p>理解 RAG 是理解 GEO 的关键。AI 引擎生成回答时，典型流程为：</p>
-  <div class="card card-geo">
-    <div class="card-icon card-icon-geo"><i class="fas fa-project-diagram"></i></div>
-    <h3>RAG 三步流程</h3>
-    <ol class="geo-list">
-      <li><strong>检索 (Retrieval)</strong> — 从索引中抓取与用户查询相关的文档片段。基于嵌入向量相似度 + BM25 关键词匹配</li>
-      <li><strong>排序 (Ranking)</strong> — 对检索到的文档片段进行相关性排序，选择 Top-K 片段</li>
-      <li><strong>生成 (Generation)</strong> — 将选定片段作为上下文输入 LLM，生成带引用的回答</li>
-    </ol>
-    <p style="margin-top:12px;"><strong>GEO 的目标：</strong>在每个阶段最大化被选中的概率。内容越容易被检索、排序越靠前、越容易被 LLM 引用，GEO 效果越好。</p>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- PAGE 7: GEO - CONTENT STRATEGY -->
-<!-- ============================================================ -->
-<section class="page" id="page-geo-content">
-  <div class="section-tag tag-geo"><i class="fas fa-file-alt"></i> GEO · 内容策略</div>
-  <h1 class="page-title">GEO 内容策略</h1>
-  <p class="page-subtitle">为 AI 引擎优化内容结构，提升在生成式回答中的引用率。</p>
-
-  <h2>💬 为对话而写作</h2>
-  <p>AI 引擎处理的查询通常以对话形式出现。优化内容以匹配自然语言查询：</p>
-  <ul class="geo-list">
-    <li><strong>问题式标题</strong> — 使用完整问题作为 H2/H3 标题："如何优化 AI 工具的抓取预算？"</li>
-    <li><strong>直接回答结构</strong> — 问题后紧跟 40-60 字直接答案，再展开细节</li>
-    <li><strong>自然语言覆盖</strong> — 包含问题的同义变体："GEO 怎么开始"、"Generative Engine Optimization 如何做"</li>
-  </ul>
-  <div class="highlight highlight-geo">
-    <p><strong>示例优化片段：</strong></p>
-    <h4>GEO 的核心目标是什么？</h4>
-    <p>GEO（Generative Engine Optimization）的核心目标是提高品牌和内容在 AI 生成的回答中被引用的概率。与传统 SEO 关注搜索引擎排名不同，GEO 关注的是 LLM+RAG 管道的检索和引用过程。<strong>研究表明，经过 GEO 优化的网站品牌引用率可提升 156%。</strong></p>
-  </div>
-
-  <div class="divider"></div>
-
-  <h2>⚡ Answer-First 结构</h2>
-  <p>在 RAG 管道中，检索系统将内容截断为片段，LLM 从片段开头提取答案。因此：</p>
-  <div class="card card-geo">
-    <div class="card-icon card-icon-geo"><i class="fas fa-arrow-right"></i></div>
-    <h3>Answer-First 写作模板</h3>
-    <pre><code>## [完整问题标题]
-[直接答案：40-60字，包含核心数据和主张]
-[展开说明：2-3段论证]
-[引用来源：链接到权威数据]
-[实操建议或下一步]</code></pre>
-  </div>
-  <ul class="geo-list">
-    <li>每个 H2/H3 回答一个问题</li>
-    <li>首段即答案，不铺垫不绕圈</li>
-    <li>核心数据/主张放在段落开头</li>
-  </ul>
-
-  <div class="divider"></div>
-
-  <h2>📊 事实密度</h2>
-  <p>AI 引擎偏爱包含具体数据、统计、引用的事实性内容。这提供了"可引用性"（citability）。</p>
-  <div class="stats-grid">
-    <div class="stat-card"><div class="stat-value geo">1个</div><div class="stat-label">每 150-200 字一个事实</div></div>
-    <div class="stat-card"><div class="stat-value geo">2-3个</div><div class="stat-label">每节外部引用</div></div>
-    <div class="stat-card"><div class="stat-value geo">70%</div><div class="stat-label">事实驱动段落</div></div>
-  </div>
-  <h4>事实类型示例</h4>
-  <ul class="geo-list">
-    <li><strong>统计数据</strong> — "65% 的 Google 搜索为零点击"</li>
-    <li><strong>研究引用</strong> — "据 SparkToro 2024 数据…"</li>
-    <li><strong>行业基准</strong> — "平均 Citation Rate 为 3.2%"</li>
-    <li><strong>案例数据</strong> — "Momentum.io 实现了 7x 有机增长"</li>
-  </ul>
-
-  <div class="divider"></div>
-
-  <h2>📝 Claim-Based 写作</h2>
-  <p>每个核心主张都需要支撑证据，形成"主张 + 证据 + 来源"的三段式结构：</p>
-  <div class="card card-geo">
-    <div class="card-icon card-icon-geo"><i class="fas fa-check-double"></i></div>
-    <h3>Claim-Based 范式</h3>
-    <ol class="geo-list">
-      <li><strong>主张 (Claim)</strong> — 提出明确的观点或数据</li>
-      <li><strong>证据 (Evidence)</strong> — 提供支持数据或逻辑推理</li>
-      <li><strong>来源 (Source)</strong> — 链接到可验证的来源</li>
-      <li><strong>引用锚点</strong> — 使用 <code>&lt;cite&gt;</code> 标签或显式引用格式</li>
-    </ol>
-  </div>
-
-  <div class="divider"></div>
-
-  <h2>🔧 E-E-A-T 在 GEO 中的实践</h2>
-  <div class="cols-2">
-    <div class="card card-geo">
-      <div class="card-icon card-icon-geo"><i class="fas fa-id-card"></i></div>
-      <h3>作者标记</h3>
-      <ul class="geo-list">
-        <li>Author Schema 标记</li>
-        <li>作者简介 + 资质链接</li>
-        <li>同作者所有文章链接</li>
-      </ul>
-    </div>
-    <div class="card card-geo">
-      <div class="card-icon card-icon-geo"><i class="fas fa-link"></i></div>
-      <h3>引用来源</h3>
-      <ul class="geo-list">
-        <li>内联引用（带链接）</li>
-        <li>脚注 / 参考文献</li>
-        <li>引用权威媒体/研究</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- PAGE 8: GEO - TECHNICAL -->
-<!-- ============================================================ -->
-<section class="page" id="page-geo-tech">
-  <div class="section-tag tag-geo"><i class="fas fa-cogs"></i> GEO · 技术实现</div>
-  <h1 class="page-title">GEO 技术实现</h1>
-  <p class="page-subtitle">从语义 HTML 到 RAG 管道优化，构建 AI 引擎最易检索的技术基础。</p>
-
-  <h2>🏷️ 语义 HTML 与内容分段</h2>
-  <p>AI 引擎的 RAG 管道依赖 HTML 结构进行内容分割和提取。正确的语义 HTML 是 GEO 的基础：</p>
-  <div class="card card-geo">
-    <div class="card-icon card-icon-geo"><i class="fas fa-code"></i></div>
-    <h3>GEO 友好的 HTML 结构</h3>
-    <pre><code>&lt;article&gt;
-  &lt;h1&gt;页面主标题&lt;/h1&gt;
-  &lt;section&gt;
-    &lt;h2&gt;问题式副标题&lt;/h2&gt;
-    &lt;p&gt;直接答案内容…&lt;/p&gt;
-    &lt;ul&gt;
-      &lt;li&gt;要点 1&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/section&gt;
-  &lt;aside&gt;
-    &lt;h3&gt;相关引用&lt;/h3&gt;
-    &lt;p&gt;…&lt;/p&gt;
-  &lt;/aside&gt;
-&lt;/article&gt;</code></pre>
-  </div>
-  <ul class="geo-list">
-    <li><strong>正确使用标题层级</strong> — H1 → H2 → H3，不跳级</li>
-    <li><strong>语义标签</strong> — <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;aside&gt;</code>, <code>&lt;nav&gt;</code> 明确内容区域</li>
-    <li><strong>段落隔离</strong> — 每个段落聚焦一个核心点，方便 RAG 精确提取</li>
-    <li><strong>显式标注引用</strong> — 使用 <code>&lt;cite&gt;</code> 或 <code>data-cite</code> 属性标记引用来源</li>
-  </ul>
-
-  <div class="divider"></div>
-
-  <h2>📊 结构化数据深度优化</h2>
-  <p>AI 引擎从 Schema 中提取结构化信息的能力直接决定了内容的可引用性：</p>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Schema 类型</th><th>GEO 用途</th><th>实现要点</th></tr></thead>
-      <tbody>
-        <tr><td><code>FAQPage</code></td><td>AI 引擎直接提取问答对</td><td>每个 Q 包含完整问题 + 详细答案；避免过多嵌套</td></tr>
-        <tr><td><code>HowTo</code></td><td>步骤式教学内容的 AI 引用</td><td>step 用数字编号 + 清晰的指令文本</td></tr>
-        <tr><td><code>QAPage</code></td><td>社区内容和问答讨论</td><td>标记最佳答案，提供赞同数</td></tr>
-        <tr><td><code>Article</code></td><td>博客和新闻内容</td><td>包含 author、datePublished、headline 字段</td></tr>
-        <tr><td><code>SoftwareApplication</code></td><td>AI 工具产品页</td><td>applicationCategory、operatingSystem、offers</td></tr>
-        <tr><td><code>Organization</code></td><td>品牌信息基础</td><td>名称、URL、Logo、SameAs (社交媒体链接)</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="highlight highlight-geo">
-    <p><strong>💡 关键发现：</strong>使用 FAQ Schema 的页面在 AI 引擎中的引用率比不使用的高出 3 倍以上。联合使用 FAQPage + HowTo + QAPage 产生叠加效果。</p>
-  </div>
-
-  <div class="divider"></div>
-
-  <h2>🔧 RAG 管道优化策略</h2>
-  <div class="cols-2">
-    <div class="card card-geo">
-      <div class="card-icon card-icon-geo"><i class="fas fa-search"></i></div>
-      <h3>Retrieval 阶段</h3>
-      <ul class="geo-list">
-        <li>段落上限 150-200 词</li>
-        <li>关键词密度 1-2%</li>
-        <li>段落开头包含核心术语</li>
-        <li>避免过度嵌套的 DOM</li>
-      </ul>
-    </div>
-    <div class="card card-geo">
-      <div class="card-icon card-icon-geo"><i class="fas fa-sort-amount-down"></i></div>
-      <h3>Ranking 阶段</h3>
-      <ul class="geo-list">
-        <li>内容中直接包含问题原文</li>
-        <li>答案放在切片开头</li>
-        <li>使用 <code>&lt;mark&gt;</code> 或加粗强调关键数据</li>
-        <li>实体一致性（品牌名固定）</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <h2>🔗 实体信号一致性</h2>
-  <p>AI 引擎跨多个来源验证实体。在不同平台上保持品牌信息一致：</p>
-  <ul class="geo-list">
-    <li>品牌名称、Logo、描述在所有平台一致</li>
-    <li>社交媒体链接指向官方主页（SameAs Schema）</li>
-    <li>产品名和版本号统一</li>
-    <li>创始人/团队信息在多个权威来源可查</li>
-    <li>行业术语的定义与行业内一致</li>
-  </ul>
-
-  <div class="divider"></div>
-
-  <h2>🔗 引用优化</h2>
-  <div class="card card-geo">
-    <div class="card-icon card-icon-geo"><i class="fas fa-quote-right"></i></div>
-    <h3>内部引用 + 外部引用模式</h3>
-    <p>在关键主张处同时提供内外引用，增加 AI 引擎对内容可信度的评估：</p>
-    <pre><code>&lt;p&gt;
-  GEO 优化可以提升品牌引用率
-  &lt;a href="/research/geo-impact-2024"&gt;最高达 156%&lt;/a&gt;
-  （来源：&lt;a href="https://..."&gt;GEO 行业报告 2024&lt;/a&gt;）。
-&lt;/p&gt;</code></pre>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- PAGE 9: GEO - METRICS & TOOLS -->
-<!-- ============================================================ -->
-<section class="page" id="page-geo-metrics">
-  <div class="section-tag tag-geo"><i class="fas fa-chart-line"></i> GEO · 度量 &amp; 工具</div>
-  <h1 class="page-title">GEO 度量与工具</h1>
-  <p class="page-subtitle">如何衡量 GEO 效果，以及推荐的工具生态。</p>
-
-  <h2>📏 核心 GEO 指标</h2>
-  <div class="stats-grid">
-    <div class="stat-card"><div class="stat-value geo">Citation Rate</div><div class="stat-label">AI 引用率</div></div>
-    <div class="stat-card"><div class="stat-value geo">BMS</div><div class="stat-label">品牌提及份额</div></div>
-    <div class="stat-card"><div class="stat-value geo">SOV</div><div class="stat-label">AI SoV</div></div>
-    <div class="stat-card"><div class="stat-value geo">受</div><div class="stat-label">情感分析</div></div>
-  </div>
-
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>指标</th><th>全称</th><th>定义</th><th>衡量方式</th></tr></thead>
-      <tbody>
-        <tr><td><strong>Citation Rate</strong></td><td>AI 引用率</td><td>品牌在 AI 引擎回答中被引用的频率</td><td>对特定查询集，统计 AI 回答中引用品牌的次数 / 总查询数</td></tr>
-        <tr><td><strong>Brand Mention Share</strong></td><td>品牌提及份额</td><td>品牌在竞品群中的 AI 引用占比</td><td>品牌引用数 / (品牌引用数 + 竞品引用数) × 100%</td></tr>
-        <tr><td><strong>Share of Voice (AI SoV)</strong></td><td>AI 声量份额</td><td>品牌在 AI 回答中出现的文本占比</td><td>品牌在 AI 回答中的字符数 / 全回答字符数</td></tr>
-        <tr><td><strong>Visibility</strong></td><td>可见性</td><td>品牌在 AI 回答中的出现位置（early/mid/late）</td><td>品牌在回答中的平均排序位置</td></tr>
-        <tr><td><strong>Sentiment</strong></td><td>情感分析</td><td>AI 回答提到品牌时的情感倾向</td><td>Positive / Neutral / Negative 占比</td></tr>
-        <tr><td><strong>Information Flow</strong></td><td>信息流向</td><td>AI 回答引用品牌时的上下文关联</td><td>归因分析：品牌被作为事实源 vs 被比较 vs 被推荐</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="divider"></div>
-
-  <h2>🛠️ 推荐工具</h2>
-  <h3>SEO 工具</h3>
-  <div class="tool-grid">
-    <div class="tool-card"><div class="tool-name">Google Search Console</div><div class="tool-desc">免费 — 性能、索引、搜索数据</div></div>
-    <div class="tool-card"><div class="tool-name">Ahrefs</div><div class="tool-desc">关键词研究、爬虫审计、竞品分析</div></div>
-    <div class="tool-card"><div class="tool-name">Semrush</div><div class="tool-desc">全栈 SEO + 内容营销平台</div></div>
-    <div class="tool-card"><div class="tool-name">DebugBear</div><div class="tool-desc">Core Web Vitals 监控</div></div>
-    <div class="tool-card"><div class="tool-name">Screaming Frog</div><div class="tool-desc">技术 SEO 爬虫审计</div></div>
-    <div class="tool-card"><div class="tool-name">Ahrefs Webmaster Tools</div><div class="tool-desc">免费网站审计</div></div>
-  </div>
-
-  <h3>GEO 工具</h3>
-  <div class="tool-grid">
-    <div class="tool-card"><div class="tool-name">GEOflux.ai</div><div class="tool-desc">AI 可见度跟踪 + 引用分析</div></div>
-    <div class="tool-card"><div class="tool-name">Profound</div><div class="tool-desc">GEO 内容策略平台</div></div>
-    <div class="tool-card"><div class="tool-name">Goodie</div><div class="tool-desc">AI 引用监控</div></div>
-    <div class="tool-card"><div class="tool-name">Karis</div><div class="tool-desc">GEO 分析和基准测试</div></div>
-    <div class="tool-card"><div class="tool-name">Daydream</div><div class="tool-desc">GEO 内容优化建议</div></div>
-    <div class="tool-card"><div class="tool-name">Omnia</div><div class="tool-desc">AI 引擎表现统一仪表板</div></div>
-  </div>
-
-  <div class="highlight highlight-geo">
-    <p><strong>💡 建议：</strong>针对不同 AI 引擎建立独立的监控看板。ChatGPT、Perplexity、AI Overviews 等各有不同的引用偏好，分别优化并追踪效果。</p>
-  </div>
-
-  <div class="divider"></div>
-
-  <h2>📈 建立 GEO 度量框架</h2>
-  <div class="card card-geo">
-    <div class="card-icon card-icon-geo"><i class="fas fa-calendar-alt"></i></div>
-    <h3>推荐的度量周期</h3>
-    <ol class="geo-list">
-      <li><strong>每周</strong> — 手动检查 10-20 个核心查询在各 AI 引擎中的表现</li>
-      <li><strong>每月</strong> — 使用 GEO 工具输出 Citation Rate、BMS、Visibility 报告</li>
-      <li><strong>每季度</strong> — 完整竞品引用分析 + 内容策略迭代</li>
-      <li><strong>每半年</strong> — 全面回顾 GEO 战略、工具栈评估</li>
-    </ol>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- PAGE 10: AI PRODUCT STRATEGY -->
-<!-- ============================================================ -->
-<section class="page" id="page-ai-products">
-  <div class="section-tag tag-ai"><i class="fas fa-brain"></i> AI 产品专属</div>
-  <h1 class="page-title">AI 产品专属策略</h1>
-  <p class="page-subtitle">AI 产品面临的独特 SEO 挑战和增长策略。</p>
-
-  <div class="highlight highlight-ai">
-    <p><strong>核心问题：</strong>AI 产品同时具有"工具"和"内容"双重身份，需要分别为两类用户意图优化。同时，AI 产品天然面临 AI 搜索引擎的"零点击"风险 — 用户问 "best AI writing tool" 却不会点击到你的网站。</p>
-  </div>
-
-  <div class="divider"></div>
-
-  <h2>🎭 双重身份：工具页 vs 内容页</h2>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th></th><th>工具页 (Tool Page)</th><th>内容页 (Content Page)</th></tr></thead>
-      <tbody>
-        <tr><td><strong>目标</strong></td><td>转化 — 注册 / 使用产品</td><td>流量 — 信息获取 / 教育</td></tr>
-        <tr><td><strong>SEO 策略</strong></td><td>品牌词 + 交易型关键词</td><td>信息型关键词 + 长尾</td></tr>
-        <tr><td><strong>GEO 策略</strong></td><td>产品 Schema + FAQ 结构化</td><td>Answer-First 内容 + 深度引用</td></tr>
-        <tr><td><strong>页面类型</strong></td><td>Landing Page, 产品页</td><td>博客, 指南, 维基, 教程</td></tr>
-        <tr><td><strong>成功指标</strong></td><td>注册率, 试用转化</td><td>自然流量, 引用频率</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="divider"></div>
-
-  <h2>🧭 三种用户意图</h2>
-  <div class="cols-2">
-    <div class="card card-ai">
-      <div class="card-icon card-icon-ai"><i class="fas fa-gamepad"></i></div>
-      <h3>Try — 试用</h3>
-      <p>用户想"试一下"这个工具。优化产品 Demo 页面、交互引导、低门槛入口。</p>
-    </div>
-    <div class="card card-ai">
-      <div class="card-icon card-icon-ai"><i class="fas fa-graduation-cap"></i></div>
-      <h3>Learn — 学习</h3>
-      <p>用户想"了解"这个技术或领域。优化教程、指南、对比内容。</p>
-    </div>
-    <div class="card card-ai">
-      <div class="card-icon card-icon-ai"><i class="fas fa-shopping-cart"></i></div>
-      <h3>Buy — 购买</h3>
-      <p>用户想"购买"或"订阅"。优化定价页、功能对比、客户案例。</p>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <h2>📝 AI 产品的内容营销转型</h2>
-  <ul>
-    <li><strong>从"产品说明"到"领域教育"</strong> — AI 用户首先需要理解技术能做什么，而非仅仅是功能列表</li>
-    <li><strong>Use Case 优先</strong> — 围绕用户真实场景创建内容："如何用 AI 做竞品分析" &gt; "工具功能介绍"</li>
-    <li><strong>教程 + Demo 内容</strong> — YouTube 教程、截图教程、Prompt 示例分享</li>
-    <li><strong>对比内容</strong> — "Product A vs Product B" 类内容占领商业调查意图</li>
-  </ul>
-  <div class="card card-ai">
-    <div class="card-icon card-icon-ai"><i class="fas fa-robot"></i></div>
-    <h3>转型示例：AI 写作工具的内容矩阵</h3>
-    <ul>
-      <li>种子内容：工具介绍 + 基础教程</li>
-      <li>增长内容：特定场景教程（学术写作、营销文案、邮件）</li>
-      <li>权威内容：AI 写作趋势报告、行业分析、独家数据</li>
-      <li>商业内容：vs Grammarly 对比、vs Jasper 对比</li>
-      <li>GEO 内容：FAQ 结构化、"best AI writing tool" 答案优化</li>
-    </ul>
-  </div>
-
-  <div class="divider"></div>
-
-  <h2>🚀 程序化 SEO 策略</h2>
-  <p>利用模板 + 数据驱动的方式规模化创建优化内容：</p>
-  <ul>
-    <li><strong>Use Case 页面模板</strong> — 为每个场景生成独立的 Landing Page："用 [工具名称] 做 [场景]"</li>
-    <li><strong>行业模板</strong> — "AI [工具] 在 [行业] 的应用" 系列</li>
-    <li><strong>对比模板</strong> — 自动化生成与各个竞品的对比页面</li>
-    <li><strong>地域模板</strong> — 多语言/多地区版本的工具介绍页</li>
-  </ul>
-  <div class="highlight highlight-ai">
-    <p><strong>⚠️ 注意事项：</strong>程序化 SEO 需避免内容质量低下或被检测为纯模板。核心支柱页需要人工深度撰写，程序化页面需包含有价值的差异化内容（数据、案例、本地化信息）。</p>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- PAGE 11: CASE STUDIES -->
-<!-- ============================================================ -->
-<section class="page" id="page-cases">
-  <div class="section-tag tag-ai"><i class="fas fa-flask"></i> 案例研究</div>
-  <h1 class="page-title">真实案例研究</h1>
-  <p class="page-subtitle">从实际数据看 SEO + GEO 策略对 AI 产品的增长效果。</p>
-
-  <div class="stats-grid">
-    <div class="stat-card"><div class="stat-value ai">7x</div><div class="stat-label">有机点击增长</div></div>
-    <div class="stat-card"><div class="stat-value ai">35x</div><div class="stat-label">AI 流量增长</div></div>
-    <div class="stat-card"><div class="stat-value ai">76%↑</div><div class="stat-label">SEO 流量提升</div></div>
-    <div class="stat-card"><div class="stat-value ai">1900%</div><div class="stat-label">LLM 流量暴增</div></div>
-  </div>
-
-  <div class="divider"></div>
-
-  <div class="card card-ai">
-    <div class="card-icon card-icon-ai"><i class="fas fa-chart-bar"></i></div>
-    <h3>案例 1: Momentum.io</h3>
-    <p class="tag" style="margin-top:4px;display:inline-block;background:rgba(249,115,22,0.1);color:var(--accent-ai);border:1px solid rgba(249,115,22,0.2);padding:4px 12px;border-radius:20px;">AI SEO 平台</p>
-    <div class="table-wrap" style="margin-top:12px;">
-      <table>
-        <thead><tr><th>指标</th><th>优化前</th><th>优化后</th><th>增长</th></tr></thead>
-        <tbody>
-          <tr><td>有机月点击</td><td>基准</td><td>-</td><td><strong>7x</strong></td></tr>
-          <tr><td>AI 引擎流量</td><td>基准</td><td>-</td><td><strong>35x</strong></td></tr>
-          <tr><td>搜索引擎印象数</td><td>基准</td><td>-</td><td><strong>11.6x</strong></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p style="margin-top:12px;"><strong>策略：</strong>大规模内容创作 × 技术 SEO 优化 × GEO 结构优化。Momentum 创建了大批量针对 AI 引擎优化的 FAQ 结构化内容，配合 Answer-First 写作方法，在 12 个月内实现了搜索引擎和 AI 引擎的双重增长。</p>
-  </div>
-
-  <div class="card card-ai">
-    <div class="card-icon card-icon-ai"><i class="fas fa-chart-line"></i></div>
-    <h3>案例 2: AI SaaS 产品</h3>
-    <p class="tag" style="margin-top:4px;display:inline-block;background:rgba(249,115,22,0.1);color:var(--accent-ai);border:1px solid rgba(249,115,22,0.2);padding:4px 12px;border-radius:20px;">B2B AI 工具</span></p>
-    <div class="table-wrap" style="margin-top:12px;">
-      <table>
-        <thead><tr><th>指标</th><th>增长</th><th>时间周期</th></tr></thead>
-        <tbody>
-          <tr><td>SEO 自然流量</td><td><strong>+76%</strong></td><td>6 个月</td></tr>
-          <tr><td>LLM (ChatGPT 等) 流量</td><td><strong>+1900%</strong></td><td>6 个月</td></tr>
-          <tr><td>品牌相关搜索</td><td><strong>+240%</strong></td><td>6 个月</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p style="margin-top:12px;"><strong>策略：</strong>重点优化 FAQ Schema + 行业特定内容 + 作者 E-E-A-T 信号。通过程序化 SEO 创建了 100+ 行业应用场景页面，同时在 ChatGPT 和 Perplexity 中实现了高引用率。</p>
-  </div>
-
-  <div class="card card-ai">
-    <div class="card-icon card-icon-ai"><i class="fas fa-globe-asia"></i></div>
-    <h3>案例 3: 多领域 GEO 优化研究</h3>
-    <p>对多个领域站点的 GEO 优化效果进行综合分析：</p>
-    <ul>
-      <li><strong>品牌引用率提升 156%</strong> — 通过 Answer-First 结构化 + Schema 优化</li>
-      <li><strong>AI 回答 SoV 提升 89%</strong> — 通过增加事实密度和权威引用</li>
-      <li><strong>内容提及提升 2.4x</strong> — 通过实体一致性 + 跨平台品牌对齐</li>
-    </ul>
-  </div>
-
-  <div class="divider"></div>
-
-  <h2>📊 关键洞察总结</h2>
-  <div class="cols-2">
-    <div class="highlight highlight-seo">
-      <h4>SEO 驱动因素</h4>
-      <ul>
-        <li>技术 SEO 基础</li>
-        <li>主题权威性</li>
-        <li>站外链接 (Backlinks)</li>
-        <li>结构化数据</li>
-        <li>内容质量 (E-E-A-T)</li>
-      </ul>
-    </div>
-    <div class="highlight highlight-geo">
-      <h4>GEO 驱动因素</h4>
-      <ul>
-        <li>Answer-First 结构</li>
-        <li>FAQ / HowTo Schema</li>
-        <li>事实密度</li>
-        <li>引用来源</li>
-        <li>实体一致性</li>
-      </ul>
-    </div>
-  </div>
-  <div class="highlight highlight-ai">
-    <p><strong>💡 最重要的发现：</strong>SEO 和 GEO 并非竞争关系，而是互补关系。最佳策略是同时优化两者，SEO 提供基础流量和权威信号，GEO 确保在 AI 引擎中的可见性。</p>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- PAGE 12: ACTION ITEMS -->
-<!-- ============================================================ -->
-<section class="page" id="page-action">
-  <div class="section-tag tag-ai"><i class="fas fa-check-double"></i> 执行框架</div>
-  <h1 class="page-title">实操清单</h1>
-  <p class="page-subtitle">优先级排序的行动计划 + 衡量框架。按阶段执行。</p>
-
-  <h2>🎯 优先级矩阵</h2>
-  <p>基于影响力和实施难度排序的行动优先级：</p>
-
-  <div class="card card-ai">
-    <div class="card-icon card-icon-ai"><i class="fas fa-exclamation-triangle"></i></div>
-    <h3>Phase 0 — 立即停止（Stop Doing）</h3>
-    <div class="priority-bar"><span style="width:100px;flex-shrink:0;font-size:13px;color:var(--text-secondary);">紧迫程度</span><div class="priority-track"><div class="priority-fill p1"></div></div></div>
-    <ul class="checklist">
-      <li>❌ 停止为信息型查询纯优化排名（零点击趋势不可逆）</li>
-      <li>❌ 停止海量 AI 生成的低质内容（被 Google 和 AI 引擎共同降权）</li>
-      <li>❌ 停止忽视零点击搜索趋势</li>
-    </ul>
-  </div>
-
-  <div class="card card-ai">
-    <div class="card-icon card-icon-ai"><i class="fas fa-fire"></i></div>
-    <h3>Phase 1 — 立即执行（P0: 本月内）</h3>
-    <div class="priority-bar"><span style="width:100px;flex-shrink:0;font-size:13px;color:var(--text-secondary);">紧迫程度</span><div class="priority-track"><div class="priority-fill p1"></div></div></div>
-    <ul class="checklist">
-      <li>✅ 优化交易型关键词内容（商业调查 + 购买意图）</li>
-      <li>✅ 实施 FAQ Schema 到所有适合的页面</li>
-      <li>✅ 采用 Answer-First 写作方法（每个段落回答一个问题）</li>
-      <li>✅ 检查并更新 robots.txt 管理 AI 爬虫</li>
-      <li>✅ 在组织/产品页面添加 SoftwareApplication + Organization Schema</li>
-    </ul>
-  </div>
-
-  <div class="card card-seo">
-    <div class="card-icon card-icon-seo"><i class="fas fa-tasks"></i></div>
-    <h3>Phase 2 — 短期（P1: 1-3 个月）</h3>
-    <div class="priority-bar"><span style="width:100px;flex-shrink:0;font-size:13px;color:var(--text-secondary);">紧迫程度</span><div class="priority-track"><div class="priority-fill p2"></div></div></div>
-    <ul class="checklist">
-      <li>✅ 建立主题集群架构（Pillar Page + Cluster Content）</li>
-      <li>✅ 提升 Core Web Vitals 分数（目标: LCP &lt;2.5s, INP &lt;200ms, CLS &lt;0.1）</li>
-      <li>✅ 实施 HowTo Schema 到教程类内容</li>
-      <li>✅ 建立 AI 引擎引用基线（Citation Rate, BMS）</li>
-      <li>✅ 内容程序化模板 + Use Case 系列页面</li>
-    </ul>
-  </div>
-
-  <div class="card card-geo">
-    <div class="card-icon card-icon-geo"><i class="fas fa-rocket"></i></div>
-    <h3>Phase 3 — 中期（P2: 3-6 个月）</h3>
-    <div class="priority-bar"><span style="width:100px;flex-shrink:0;font-size:13px;color:var(--text-secondary);">紧迫程度</span><div class="priority-track"><div class="priority-fill p3"></div></div></div>
-    <ul class="checklist">
-      <li>✅ 深化 E-E-A-T 信号（作者页面、资质展示、引用来源丰富化）</li>
-      <li>✅ 优化站内实体一致性（品牌名、产品名、行业术语统一）</li>
-      <li>✅ 实施跨平台品牌同源信号（SameAs Schema）</li>
-      <li>✅ 引入 GEO 度量工具（GEOflux / Profound / Goodie）</li>
-      <li>✅ 创建竞争对比内容系列</li>
-    </ul>
-  </div>
-
-  <div class="card card-geo">
-    <div class="card-icon card-icon-geo"><i class="fas fa-satellite"></i></div>
-    <h3>Phase 4 — 长期（P3: 6-12 个月）</h3>
-    <div class="priority-bar"><span style="width:100px;flex-shrink:0;font-size:13px;color:var(--text-secondary);">紧迫程度</span><div class="priority-track"><div class="priority-fill p4"></div></div></div>
-    <ul class="checklist">
-      <li>✅ 建立品牌护城河（社区、订阅、第一方数据）</li>
-      <li>✅ 深度原创研究 + 行业报告（差异化不可复制内容）</li>
-      <li>✅ 全自动 GEO 度量仪表板</li>
-      <li>✅ 多引擎 AI 引用优化（ChatGPT vs Perplexity vs Gemini 差异化）</li>
-      <li>✅ 建立 GEO × SEO 联合增长飞轮</li>
-    </ul>
-  </div>
-
-  <div class="divider"></div>
-
-  <h2>📐 衡量框架</h2>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>领域</th><th>指标</th><th>频率</th><th>工具</th><th>基线（示例）</th></tr></thead>
-      <tbody>
-        <tr><td>技术 SEO</td><td>Core Web Vitals</td><td>每周</td><td>GSC, DebugBear</td><td>LCP 2.8s → &lt;2.5s</td></tr>
-        <tr><td>内容 SEO</td><td>关键词排名</td><td>每周</td><td>Ahrefs, Semrush</td><td>Trading KW Top10</td></tr>
-        <tr><td>AI 可见性</td><td>Citation Rate</td><td>每月</td><td>GEOflux</td><td>当前 2% → 目标 8%</td></tr>
-        <tr><td>品牌</td><td>Brand Mention Share</td><td>每月</td><td>Profound</td><td>当前 5% → 目标 20%</td></tr>
-        <tr><td>流量</td><td>AI 引擎流量</td><td>每周</td><td>GA4 + GSC</td><td>当前 0.3% → 目标 3%</td></tr>
-        <tr><td>转化</td><td>自然流量转化</td><td>每月</td><td>GA4</td><td>持续提升</td></tr>
-        <tr><td>竞品</td><td>AI SoV</td><td>每季</td><td>Omnia</td><td>与竞品对标</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="divider"></div>
-
-  <h2>🔄 SEO × GEO 增长飞轮</h2>
-  <div class="card card-ai">
-    <div class="card-icon card-icon-ai"><i class="fas fa-sync-alt"></i></div>
-    <h3>闭环增长模型</h3>
-    <ol>
-      <li><strong>SEO 内容 → 获取自然流量</strong> — 传统搜索带来基础访问量和品牌认知</li>
-      <li><strong>品牌认知 → 更多搜索</strong> — 认知提升带动品牌搜索</li>
-      <li><strong>品牌内容 → AI 引用</strong> — 高质量内容被 AI 引擎检索和引用</li>
-      <li><strong>AI 引用 → 更多品牌接触</strong> — AI 回答中曝光提升品牌认知</li>
-      <li><strong>品牌认知 → 直接访问</strong> — 用户绕过搜索引擎直接访问</li>
-      <li><strong>直接访问 → 多渠道增长</strong> — 订阅、推荐、社交媒体传播</li>
-    </ol>
-    <p style="margin-top:12px;"><strong>核心逻辑：</strong>SEO 和 GEO 不是零和博弈。SEO 建立权威信号，GEO 放大品牌在 AI 引擎中的曝光。两者协同形成正向飞轮。</p>
-  </div>
-
-  <div class="divider"></div>
-
-  <div class="highlight highlight-geo" style="text-align:center;padding:32px;">
-    <p style="font-size:18px;font-weight:600;margin-bottom:8px;">🚀 从今天开始</p>
-    <p>选择 Phase 1 中的 1-2 项，在本周内执行。建立基线数据，然后进入持续优化循环。</p>
-    <p style="color:var(--text-muted);font-size:13px;margin-top:8px;">本指南持续更新 · 欢迎反馈和贡献</p>
-  </div>
-</section>
-
-</main>
-
-<script>
-(function() {
-  'use strict';
-
-  const sidebar = document.getElementById('sidebar');
-  const overlay = document.getElementById('sidebarOverlay');
-  const hamburger = document.getElementById('hamburger');
-
-  // --- Page navigation ---
-  const navLinks = document.querySelectorAll('.nav-item');
-  const pages = document.querySelectorAll('.page');
-  const tocItems = document.querySelectorAll('.toc-item');
-
-  function showPage(pageId) {
-    // Hide all pages
-    pages.forEach(p => p.classList.remove('active'));
-    // Show target
-    const target = document.getElementById(pageId);
-    if (target) target.classList.add('active');
-
-    // Update nav active states
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.dataset.page === pageId) {
-        link.classList.add('active');
-      }
-    });
-
-    // Scroll main content to top
-    document.querySelector('.main-content').scrollTop = 0;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    // Close sidebar on mobile
-    sidebar.classList.remove('open');
-    if (overlay) overlay.classList.remove('open');
-  }
-
-  // Nav click handlers
-  navLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      const pageId = this.dataset.page;
-      if (pageId) showPage(pageId);
-      // Update hash
-      history.pushState(null, '', '#' + pageId);
-    });
-  });
-
-  // TOC click handlers
-  tocItems.forEach(item => {
-    item.addEventListener('click', function() {
-      const target = this.dataset.target;
-      if (target) showPage(target);
-    });
-  });
-
-  // Hamburger toggle
-  if (hamburger) {
-    hamburger.addEventListener('click', function() {
-      sidebar.classList.toggle('open');
-      overlay.classList.toggle('open');
-    });
-  }
-
-  // Overlay close
-  if (overlay) {
-    overlay.addEventListener('click', function() {
-      sidebar.classList.remove('open');
-      overlay.classList.remove('open');
-    });
-  }
-
-  // --- Hash routing ---
-  function handleHash() {
-    const hash = window.location.hash.replace('#', '');
-    if (hash && document.getElementById(hash)) {
-      showPage(hash);
-    }
-  }
-
-  window.addEventListener('hashchange', handleHash);
-
-  // Initial hash load
-  handleHash();
-
-  // --- Keyboard shortcuts ---
-  document.addEventListener('keydown', function(e) {
-    // Escape closes sidebar
-    if (e.key === 'Escape') {
-      sidebar.classList.remove('open');
-      if (overlay) overlay.classList.remove('open');
-    }
-  });
-
-})();
-</script>
+    <!-- ========== HEADER ========== -->
+    <header class="header-gradient bg-grid">
+        <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+            <!-- Breadcrumb -->
+            <div class="flex items-center gap-2 text-sm text-text-muted mb-8" style="color: var(--text-muted);">
+                <a href="/" class="hover:text-text-primary transition-colors" style="color: var(--text-muted);">首页</a>
+                <span style="color: var(--text-muted);">/</span>
+                <span style="color: var(--text-secondary);">研究报告</span>
+            </div>
+
+            <!-- Title -->
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-6"
+                     style="background: var(--tag-bg); color: var(--tag-text); border: 1px solid var(--border-accent);">
+                    <i class="fa-solid fa-book-open" style="font-size: 11px;"></i>
+                    研究合集
+                </div>
+
+                <h1 class="display-font text-5xl md:text-6xl lg:text-7xl font-bold leading-tight accent-glow"
+                    style="color: var(--text-primary);">
+                    研究报告
+                </h1>
+                <p class="text-lg md:text-xl mt-4" style="color: var(--text-secondary);">
+                    AI 产品增长手册 &amp; 技术研究合集
+                </p>
+            </div>
+
+            <!-- Stats row -->
+            <div class="flex flex-wrap gap-10 md:gap-16 mt-12">
+                <div>
+                    <div class="stat-number" id="totalReports">1</div>
+                    <div class="stat-label">报告</div>
+                </div>
+                <div>
+                    <div class="stat-number" id="totalChapters">12</div>
+                    <div class="stat-label">章节</div>
+                </div>
+                <div>
+                    <div class="stat-number" id="totalReadTime">~30</div>
+                    <div class="stat-label">分钟阅读</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== MAIN ========== -->
+    <main class="max-w-6xl mx-auto px-6 py-12">
+
+        <!-- Search & Filters -->
+        <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+            <div class="search-wrapper flex-1 max-w-md w-full">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" id="searchInput" placeholder="搜索报告..." autocomplete="off">
+            </div>
+            <div class="tags-scroll flex-shrink-0">
+                <button class="filter-btn active" data-filter="all">全部</button>
+                <button class="filter-btn" data-filter="SEO">SEO</button>
+                <button class="filter-btn" data-filter="GEO">GEO</button>
+                <button class="filter-btn" data-filter="AI">AI</button>
+                <button class="filter-btn" data-filter="增长策略">增长策略</button>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Report Grid -->
+        <div id="reportGrid" class="grid gap-8 md:grid-cols-1">
+
+            <!-- ===== REPORT CARD: SEO & GEO 优化指南 ===== -->
+            <article class="report-card animate-in" data-tags="SEO,GEO,AI,增长策略" data-title="seo geo 优化指南">
+                <div class="flex flex-col md:flex-row">
+                    <!-- Cover -->
+                    <div class="card-cover md:w-72 md:h-auto md:flex-shrink-0">
+                        <div class="cover-pattern"></div>
+                        <div class="cover-art display-font" style="font-size: 60px; opacity: 0.1; font-weight: 700;">
+                            SEO<br>&amp; GEO
+                        </div>
+                        <div class="cover-badge">
+                            <i class="fa-regular fa-file-lines" style="margin-right: 4px;"></i>
+                            v1.0
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="p-6 md:p-8 flex flex-col flex-1">
+                        <!-- Tags -->
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="tag"><i class="fa-solid fa-tag" style="font-size: 10px;"></i> SEO</span>
+                            <span class="tag"><i class="fa-solid fa-tag" style="font-size: 10px;"></i> GEO</span>
+                            <span class="tag"><i class="fa-solid fa-tag" style="font-size: 10px;"></i> AI</span>
+                            <span class="tag"><i class="fa-solid fa-tag" style="font-size: 10px;"></i> 增长策略</span>
+                        </div>
+
+                        <!-- Title -->
+                        <h2 class="display-font text-2xl md:text-3xl font-semibold leading-snug mb-3"
+                            style="color: var(--text-primary);">
+                            SEO &amp; GEO 优化指南
+                        </h2>
+
+                        <!-- Description -->
+                        <p class="text-sm md:text-base mb-4 flex-1" style="color: var(--text-secondary); line-height: 1.7;">
+                            从传统搜索引擎优化到生成式引擎优化的完整转型指南。涵盖技术 SEO、内容策略、Google SGE 应对、GEO 方法论，以及 AI 产品专属的增长策略。
+                        </p>
+
+                        <!-- Meta & CTA -->
+                        <div class="flex flex-wrap items-center justify-between gap-4 mt-auto pt-4"
+                             style="border-top: 1px solid var(--border-subtle);">
+
+                            <div class="flex flex-wrap items-center gap-4">
+                                <span class="meta-item">
+                                    <i class="fa-regular fa-file-lines"></i>
+                                    12 章
+                                </span>
+                                <span class="meta-item">
+                                    <i class="fa-regular fa-clock"></i>
+                                    ~30 分钟
+                                </span>
+                                <span class="meta-item">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    2026-05-14
+                                </span>
+                            </div>
+
+                            <a href="/reports/seo-geo-guide/" class="read-link">
+                                阅读报告
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState">
+            <i class="fa-regular fa-file-magnifying-glass"></i>
+            <h3 class="text-lg font-medium mb-2" style="color: var(--text-secondary);">未找到匹配的报告</h3>
+            <p class="text-sm" style="color: var(--text-muted);">尝试使用不同的关键词或筛选条件</p>
+        </div>
+
+        <!-- Footer -->
+        <div class="section-divider"></div>
+
+        <footer class="flex flex-col sm:flex-row items-center justify-between gap-4 pb-8 text-sm"
+                style="color: var(--text-muted);">
+            <span>© 2026 AI 产品增长手册</span>
+            <div class="flex items-center gap-4">
+                <span>持续更新中</span>
+                <span class="w-1.5 h-1.5 rounded-full inline-block" style="background: #22c55e; box-shadow: 0 0 6px rgba(34,197,94,0.4);"></span>
+                <span style="color: var(--text-muted);">内容有生命</span>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        (function() {
+            const searchInput = document.getElementById('searchInput');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const reportCards = document.querySelectorAll('.report-card');
+            const emptyState = document.getElementById('emptyState');
+            const totalReportsEl = document.getElementById('totalReports');
+
+            function filterReports() {
+                const query = searchInput.value.trim().toLowerCase();
+                const activeFilter = document.querySelector('.filter-btn.active');
+                const activeTag = activeFilter ? activeFilter.dataset.filter : 'all';
+
+                let visibleCount = 0;
+
+                reportCards.forEach(card => {
+                    const tags = (card.dataset.tags || '').toLowerCase();
+                    const title = (card.dataset.title || '').toLowerCase();
+
+                    const matchesTag = activeTag === 'all' || tags.includes(activeTag.toLowerCase());
+                    const matchesSearch = !query ||
+                        title.includes(query) ||
+                        tags.includes(query);
+
+                    const visible = matchesTag && matchesSearch;
+                    card.style.display = visible ? '' : 'none';
+                    if (visible) visibleCount++;
+                });
+
+                // Update empty state
+                emptyState.classList.toggle('visible', visibleCount === 0);
+            }
+
+            // Search input
+            searchInput.addEventListener('input', filterReports);
+
+            // Filter buttons
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    filterReports();
+                });
+            });
+
+            // Initial count
+            totalReportsEl.textContent = reportCards.length;
+
+            // Keyboard shortcut: Cmd/Ctrl + K to focus search
+            document.addEventListener('keydown', function(e) {
+                if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                    e.preventDefault();
+                    searchInput.focus();
+                }
+            });
+        })();
+    </script>
 
 </body>
 </html>
