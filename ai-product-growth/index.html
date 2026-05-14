@@ -4,80 +4,53 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI 产品增长手册</title>
-<meta name="description" content="AI 产品的系统性增长指南 — SEO, GEO, 定价, PLG, 社区增长">
+<meta name="description" content="AI 产品的系统性增长指南">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-/* ===== THEME SYSTEM ===== */
-:root,[data-theme=light] {
-  --bg:#f6f5f1; --bg-sidebar:#faf9f5; --surface:#fff; --surface-hover:#f3f2ed; --border:#e2e0da; --border-raised:#d4d2cc;
-  --text:#1c1b1a; --text-secondary:#5c5b58; --text-muted:#8f8e8b; --text-dim:#b0afac;
-  --accent:#097abb; --accent2:#0d9488; --accent3:#d97706;
-  --shadow:rgba(0,0,0,0.04); --shadow-hover:rgba(0,0,0,0.08);
-}
-[data-theme=dark] {
-  --bg:#1a1a1e; --bg-sidebar:#1f1f23; --surface:#27272b; --surface-hover:#2f2f33; --border:#37373b; --border-raised:#47474b;
-  --text:#e6e6e8; --text-secondary:#9c9ca0; --text-muted:#6c6c70; --text-dim:#4c4c50;
-  --accent:#4bb4e6; --accent2:#34d1c4; --accent3:#f5a623;
-  --shadow:rgba(0,0,0,0.16); --shadow-hover:rgba(0,0,0,0.24);
-}
-/* System preference auto-detect */
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme=light]):not([data-theme=dark]){ --bg:#1a1a1e; --bg-sidebar:#1f1f23; --surface:#27272b; --surface-hover:#2f2f33; --border:#37373b; --border-raised:#47474b; --text:#e6e6e8; --text-secondary:#9c9ca0; --text-muted:#6c6c70; --text-dim:#4c4c50; --accent:#4bb4e6; --accent2:#34d1c4; --accent3:#f5a623; --shadow:rgba(0,0,0,0.16); --shadow-hover:rgba(0,0,0,0.24); }
-}
-
+:root,[data-theme=light]{--bg:#f6f5f1;--bg-sidebar:#faf9f5;--surface:#fff;--surface-hover:#f3f2ed;--border:#e2e0da;--border-raised:#d4d2cc;--text:#1c1b1a;--text-secondary:#5c5b58;--text-muted:#8f8e8b;--accent:#097abb;--accent2:#0d9488}
+[data-theme=dark]{--bg:#1a1a1e;--bg-sidebar:#1f1f23;--surface:#27272b;--surface-hover:#2f2f33;--border:#37373b;--border-raised:#47474b;--text:#e6e6e8;--text-secondary:#9c9ca0;--text-muted:#6c6c70;--text-dim:#4c4c50;--accent:#4bb4e6;--accent2:#34d1c4}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]):not([data-theme=dark]){--bg:#1a1a1e;--bg-sidebar:#1f1f23;--surface:#27272b;--surface-hover:#2f2f33;--border:#37373b;--border-raised:#47474b;--text:#e6e6e8;--text-secondary:#9c9ca0;--text-muted:#6c6c70;--text-dim:#4c4c50;--accent:#4bb4e6;--accent2:#34d1c4}}
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;transition:background .2s,color .2s}
 h1{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;margin-bottom:12px;line-height:1.2;color:var(--text)}
 h2{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;margin:24px 0 10px;color:var(--text)}
 h3{font-size:15px;font-weight:600;margin:18px 0 8px;color:var(--text)}
-h4{font-size:14px;font-weight:600;margin:14px 0 6px;color:var(--text)}
 p{font-size:14px;color:var(--text-secondary);margin-bottom:12px;line-height:1.8}
 strong{color:var(--text);font-weight:600}
 code{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--surface);padding:2px 6px;border-radius:4px;color:var(--accent)}
 pre{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;overflow-x:auto;margin:12px 0;font-size:12px;line-height:1.6}
 pre code{background:none;padding:0;color:var(--text-secondary)}
-
-/* TOPBAR */
 .topbar{position:fixed;top:0;left:0;right:0;z-index:100;height:52px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:12px}
 .topbar-home{color:var(--accent);text-decoration:none;font-size:16px;display:flex;align-items:center;gap:6px}
 .topbar-title{font-family:'Playfair Display',serif;font-size:14px;font-weight:600;color:var(--text)}
-.theme-toggle{margin-left:auto;background:none;border:1px solid var(--border);border-radius:6px;color:var(--text-muted);padding:6px 10px;font-size:13px;cursor:pointer;transition:all .15s}
+.theme-toggle{margin-left:auto;background:none;border:1px solid var(--border);border-radius:6px;color:var(--text-muted);padding:6px 10px;font-size:13px;cursor:pointer}
 .theme-toggle:hover{border-color:var(--border-raised);color:var(--text)}
-
-/* LAYOUT */
 .layout{display:flex;margin-top:52px;min-height:calc(100vh - 52px)}
-
-/* SIDEBAR */
-.sidebar{width:250px;flex-shrink:0;background:var(--bg-sidebar);border-right:1px solid var(--border);position:sticky;top:52px;height:calc(100vh - 52px);overflow-y:auto;padding:12px 0}
-.sidebar-label{padding:6px 20px 10px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--text-muted)}
-.tree-item{cursor:pointer;user-select:none}
-.tree-l1{display:flex;align-items:center;gap:6px;padding:6px 16px 6px 20px;font-size:13px;font-weight:500;color:var(--text-secondary);border-left:3px solid transparent;transition:all .12s}
-.tree-l1:hover{background:var(--surface-hover);color:var(--text)}
-.tree-l1.active{color:var(--text);font-weight:600;background:var(--surface);border-left-color:var(--accent)}
-.tree-l1.cs{opacity:.4}
-.tree-l1 .arrow{font-size:8px;width:14px;text-align:center;color:var(--text-dim);transition:transform .2s}
-.tree-l1 .arrow.open{transform:rotate(90deg)}
-.tree-l1 .ico{font-size:11px;width:16px;text-align:center;flex-shrink:0}
-.tree-l1 .badge-cs{font-size:9px;margin-left:auto;padding:0 6px;border-radius:4px;background:var(--surface);color:var(--text-dim)}
-.tree-l2{display:flex;align-items:center;padding:4px 16px 4px 46px;font-size:12px;color:var(--text-muted);cursor:pointer;transition:all .12s;border-left:3px solid transparent}
-.tree-l2:hover{color:var(--text-secondary)}
-.tree-l2.active{color:var(--accent);border-left-color:var(--accent);font-weight:500}
-.sub-wrap{display:none}
-.sub-wrap.open{display:block}
-.sidebar::-webkit-scrollbar{width:4px}
-.sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
-
-/* MAIN CONTENT */
-.main{flex:1;padding:28px 44px 80px;max-width:920px;background:var(--surface);min-height:calc(100vh - 52px);transition:background .2s}
-.ch-page{display:none;animation:fadeIn .22s ease}
-.ch-page.active{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
-/* COMPONENTS */
+.sidebar{width:260px;flex-shrink:0;background:var(--bg-sidebar);border-right:1px solid var(--border);position:sticky;top:52px;height:calc(100vh - 52px);overflow-y:auto;padding:10px 0}
+.sidebar::-webkit-scrollbar{width:4px}.sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+/* Group (L1) */
+.gr{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:8px 20px 4px;color:var(--text-muted);display:flex;align-items:center;gap:6px}
+.gr .dot{width:6px;height:6px;border-radius:50%;display:inline-block}
+/* Chapter (L2) */
+.tr{cursor:pointer;user-select:none}
+.l2{display:flex;align-items:center;gap:5px;padding:5px 16px 5px 28px;font-size:13px;font-weight:500;color:var(--text-secondary);border-left:3px solid transparent;transition:all .12s}
+.l2:hover{background:var(--surface-hover);color:var(--text)}
+.l2.active{color:var(--text);font-weight:600;background:var(--surface);border-left-color:var(--accent)}
+.l2.cs{opacity:.45}
+.l2 .ar{font-size:8px;width:12px;text-align:center;color:var(--text-dim);transition:transform .2s}
+.l2 .ar.open{transform:rotate(90deg)}
+.l2 .ico{font-size:11px;width:14px;text-align:center;flex-shrink:0}
+/* Section (L3) */
+.l3{display:flex;align-items:center;padding:3px 16px 3px 50px;font-size:12px;color:var(--text-muted);cursor:pointer;transition:all .12s;border-left:3px solid transparent}
+.l3:hover{color:var(--text-secondary)}
+.l3.active{color:var(--accent);border-left-color:var(--accent);font-weight:500}
+.sw{display:none}.sw.open{display:block}
+.main{flex:1;padding:28px 44px 80px;max-width:920px;background:var(--surface);min-height:calc(100vh - 52px)}
+.ch-page{display:none;animation:fade .22s ease}.ch-page.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .ch-header{margin-bottom:20px}
 .ch-tag{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;padding:3px 10px;border-radius:6px;display:inline-flex;align-items:center;gap:5px;margin-bottom:10px}
 .ch-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;line-height:1.15;color:var(--text)}
@@ -91,768 +64,205 @@ pre code{background:none;padding:0;color:var(--text-secondary)}
 table{width:100%;border-collapse:collapse;font-size:13px}
 thead th{background:var(--bg);padding:7px 10px;text-align:left;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:var(--text-muted);border-bottom:1px solid var(--border)}
 tbody td{padding:7px 10px;border-bottom:1px solid var(--border);color:var(--text-secondary)}
-tbody tr:last-child td{border-bottom:none}
-tbody tr:hover td{background:var(--surface-hover)}
+tbody tr:last-child td{border-bottom:none}tbody tr:hover td{background:var(--surface-hover)}
 .tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;margin:10px 0}
-.tool-card{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:10px 12px;transition:all .15s}
-.tool-card:hover{transform:translateY(-2px);box-shadow:0 2px 8px var(--shadow)}
-.tc-name{font-weight:600;font-size:12px;margin-bottom:1px}
-.tc-desc{font-size:11px;color:var(--text-muted)}
+.tool-card{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:10px 12px}
+.tc-name{font-weight:600;font-size:12px}.tc-desc{font-size:11px;color:var(--text-muted)}
 ul,ol{margin:8px 0 14px;padding-left:20px;color:var(--text-secondary);font-size:14px;line-height:1.8}
 li{margin-bottom:4px}
-.hl{border-radius:8px;padding:16px 18px;margin:14px 0;border:1px solid}
-.hl p:last-child{margin-bottom:0}
-.divider{height:1px;background:gradient(90deg,transparent,var(--border),transparent);margin:28px 0}
+.hl{border-radius:8px;padding:16px 18px;margin:14px 0;border:1px solid}.hl p:last-child{margin-bottom:0}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:28px 0}
 .cs-block{background:var(--bg);border:1px dashed var(--border-raised);border-radius:8px;padding:24px 20px;text-align:center;margin:12px 0}
-.cs-icon{font-size:24px;margin-bottom:6px;opacity:.35}
-.cs-title{font-size:14px;font-weight:600;margin-bottom:4px}
-.cs-desc{font-size:12px;color:var(--text-muted);margin-bottom:10px}
+.cs-icon{font-size:24px;margin-bottom:6px;opacity:.35}.cs-title{font-size:14px;font-weight:600;margin-bottom:4px}.cs-desc{font-size:12px;color:var(--text-muted);margin-bottom:10px}
 .cs-toc{list-style:none;padding:0;margin:8px auto 0;max-width:360px;text-align:left}
 .cs-toc li{font-size:12px;color:var(--text-muted);padding:3px 0;display:flex;align-items:center;gap:6px}
 .dot{width:4px;height:4px;border-radius:50%;flex-shrink:0}
-
-/* RESPONSIVE */
 @media(max-width:900px){.sidebar{display:none}.main{padding:24px 18px 60px}}
-@media(max-width:600px){.stat-grid{grid-template-columns:repeat(2,1fr)}.ch-title{font-size:20px}h1{font-size:22px}.topbar-home span{display:none}}
+@media(max-width:600px){.stat-grid{grid-template-columns:repeat(2,1fr)}.ch-title{font-size:20px}h1{font-size:22px}}
 </style>
 </head>
 <body>
-
 <div class="topbar">
   <a class="topbar-home" href="../../"><i class="fas fa-arrow-left"></i><span> 报告索引</span></a>
   <span class="topbar-title">AI 产品增长手册</span>
   <button class="theme-toggle" id="themeToggle" title="切换主题"><i class="fas fa-moon"></i></button>
 </div>
-
 <div class="layout">
-  <div class="sidebar" id="sidebar">
-    <div class="sidebar-label"><i class="fas fa-list"></i> 目录</div>
-  </div>
-  <div class="main" id="main">
-    <div class="ch-page active" id="page-0"></div>
-  </div>
+  <div class="sidebar" id="sidebar"></div>
+  <div class="main" id="main"></div>
 </div>
-
 <script>
 (function(){
 'use strict';
 
-// ===== THEME =====
-(function initTheme(){
-  const saved = localStorage.getItem('theme');
-  if(saved) document.documentElement.setAttribute('data-theme', saved);
-  const btn = document.getElementById('themeToggle');
-  btn.addEventListener('click', ()=>{
-    const current = document.documentElement.getAttribute('data-theme');
-    const next = current === 'dark' ? 'light' : current === 'light' ? 'system' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
-    updateThemeIcon(next);
-  });
-  updateThemeIcon(saved || 'system');
-  function updateThemeIcon(mode){
-    const i = btn.querySelector('i');
-    if(mode === 'dark') i.className = 'fas fa-sun';
-    else if(mode === 'light') i.className = 'fas fa-sun-bright';
-    else i.className = 'fas fa-desktop';
-  }
-})();
+// Theme
+(function(){const s=localStorage.getItem('t');if(s)document.documentElement.setAttribute('data-theme',s);const b=document.getElementById('themeToggle');b.addEventListener('click',()=>{const c=document.documentElement.getAttribute('data-theme');const n=c==='dark'?'light':c==='light'?'system':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('t',n);const i=b.querySelector('i');i.className=n==='dark'?'fas fa-sun':n==='light'?'fas fa-sun-bright':'fas fa-desktop'})})();
 
-// ===== CHAPTER/SLUG DATA =====
-const slugs = {
-  ch: [
-    { slug:'', title:'封面', cs:false, sections:[] },
-    { slug:'seo-tech', title:'SEO: 技术层', tag:'SEO 基础', icon:'fa-code', color:'#097abb', cs:false,
-      sections:[
-        { slug:'crawl-index', title:'抓取与索引' },
-        { slug:'ai-crawlers', title:'AI 爬虫管理' },
-        { slug:'sitemaps', title:'XML Sitemaps' },
-        { slug:'core-web-vitals', title:'Core Web Vitals' },
-        { slug:'schema', title:'结构化数据' },
-        { slug:'architecture', title:'网站架构' },
-        { slug:'ssr-ssg', title:'SSR / SSG 决策与验证' },
-        { slug:'checklist', title:'技术 SEO 周检查清单' }
-      ]},
-    { slug:'seo-content', title:'SEO: 内容层', tag:'SEO 进阶', icon:'fa-pen-fancy', color:'#097abb', cs:false,
-      sections:[
-        { slug:'semantic-search', title:'语义搜索与意图匹配' },
-        { slug:'topic-clusters', title:'主题集群 6 步法' },
-        { slug:'eeat', title:'E-E-A-T 框架' },
-        { slug:'entity', title:'实体优化与 Knowledge Graph' },
-        { slug:'featured-snippets', title:'Featured Snippets 优化' },
-        { slug:'case-miro', title:'案例: Miro 内容矩阵' }
-      ]},
-    { slug:'sge', title:'SGE / AI Overviews', tag:'SEO 新战场', icon:'fa-robot', color:'#097abb', cs:false,
-      sections:[
-        { slug:'overview', title:'AI Overviews 现状' },
-        { slug:'factors', title:'被引用核心因素' },
-        { slug:'traffic-erosion', title:'流量侵蚀应对' },
-        { slug:'testing', title:'SGE 触发测试方法论' },
-        { slug:'case-faq', title:'案例: FAQ Schema 影响' }
-      ]},
-    { slug:'geo-overview', title:'GEO: 概述', tag:'GEO · 概述', icon:'fa-globe', color:'#0d9488', cs:false,
-      sections:[
-        { slug:'definition', title:'GEO 定义' },
-        { slug:'seo-vs-geo', title:'SEO vs GEO' },
-        { slug:'engine-ecosystem', title:'AI 引擎生态' },
-        { slug:'rag-pipeline', title:'RAG 管道拆解' },
-        { slug:'baseline-test', title:'引用率基线测试' }
-      ]},
-    { slug:'geo-content', title:'GEO: 内容策略', tag:'GEO · 内容', icon:'fa-file-alt', color:'#0d9488', cs:false,
-      sections:[
-        { slug:'answer-first', title:'Answer-First 写作' },
-        { slug:'claim-based', title:'Claim-Based 写作' },
-        { slug:'fact-density', title:'事实密度优化' },
-        { slug:'eeat-geo', title:'E-E-A-T 实践' },
-        { slug:'before-after', title:'改写案例对比' }
-      ]},
-    { slug:'geo-tech', title:'GEO: 技术实现', tag:'GEO · 技术', icon:'fa-cogs', color:'#0d9488', cs:false,
-      sections:[
-        { slug:'semantic-html', title:'语义 HTML' },
-        { slug:'jsonld', title:'结构化数据模板' },
-        { slug:'rag-optimization', title:'RAG 管道优化' },
-        { slug:'langchain', title:'LangChain 模拟测试' },
-        { slug:'citation-optimize', title:'引用优化' }
-      ]},
-    { slug:'geo-metrics', title:'GEO: 度量与工具', tag:'GEO · 度量', icon:'fa-chart-line', color:'#0d9488', cs:false,
-      sections:[
-        { slug:'kpi', title:'核心指标' },
-        { slug:'manual', title:'手动度量' },
-        { slug:'tools', title:'工具对比' },
-        { slug:'tracker', title:'追踪表模板' }
-      ]},
-    { slug:'pricing', title:'AI 产品定价策略', tag:'增长方法', icon:'fa-tag', color:'#b45309', cs:true, sections:[
-      { slug:'models','title':'定价模型'},{slug:'freemium','title':'免费增值'},{slug:'usage','title':'按量vs订阅'},{slug:'ab-test','title':'定价页 A/B 测试'}
+// ===== STRUCTURE: 3-level hierarchy =====
+const G = [
+  { title:'SEO', dot:'#097abb',
+    kids:[
+      { slug:'seo-tech', title:'技术优化', ico:'fa-code',
+        S:[{sl:'crawl-index',t:'抓取与索引'},{sl:'ai-crawlers',t:'AI爬虫管理'},{sl:'sitemaps',t:'XML Sitemaps'},{sl:'core-web-vitals',t:'Core Web Vitals'},{sl:'schema',t:'结构化数据'},{sl:'architecture',t:'网站架构'},{sl:'ssr-ssg',t:'SSR/SSG验证'},{sl:'checklist',t:'周检查清单'}]},
+      { slug:'seo-content', title:'内容优化', ico:'fa-pen-fancy',
+        S:[{sl:'semantic-search',t:'语义搜索'},{sl:'topic-clusters',t:'主题集群'},{sl:'eeat',t:'E-E-A-T框架'},{sl:'entity',t:'实体优化'},{sl:'featured-snippets',t:'Featured Snippets'},{sl:'case-miro',t:'案例: Miro'}]},
+      { slug:'sge', title:'SGE / AI Overviews', ico:'fa-robot',
+        S:[{sl:'overview',t:'AI Overviews现状'},{sl:'factors',t:'被引用因素'},{sl:'traffic-erosion',t:'流量侵蚀应对'},{sl:'testing',t:'SGE触发测试'},{sl:'case-faq',t:'案例: FAQ Schema'}]}
     ]},
-    { slug:'plg', title:'PLG 增长', tag:'增长方法', icon:'fa-rocket', color:'#059669', cs:true, sections:[
-      { slug:'funnel','title':'PLG 漏斗'},{slug:'activation','title':'激活率'},{slug:'virality','title':'病毒系数'},{slug:'self-serve','title':'Self-serve vs Sales'}
+  { title:'GEO', dot:'#0d9488',
+    kids:[
+      { slug:'geo-overview', title:'概述', ico:'fa-globe',
+        S:[{sl:'definition',t:'GEO定义'},{sl:'seo-vs-geo',t:'SEO vs GEO'},{sl:'engine-ecosystem',t:'AI引擎生态'},{sl:'rag-pipeline',t:'RAG管道'},{sl:'baseline-test',t:'引用率测试'}]},
+      { slug:'geo-content', title:'内容策略', ico:'fa-file-alt',
+        S:[{sl:'answer-first',t:'Answer-First'},{sl:'claim-based',t:'Claim-Based'},{sl:'fact-density',t:'事实密度'},{sl:'before-after',t:'改写案例'}]},
+      { slug:'geo-tech', title:'技术实现', ico:'fa-cogs',
+        S:[{sl:'semantic-html',t:'语义HTML'},{sl:'jsonld',t:'Schema模板'},{sl:'rag-optimization',t:'RAG优化'},{sl:'langchain',t:'LangChain模拟'}]},
+      { slug:'geo-metrics', title:'度量与工具', ico:'fa-chart-line',
+        S:[{sl:'kpi',t:'核心指标'},{sl:'tracker',t:'追踪表'},{sl:'tools',t:'工具'}]}
     ]},
-    { slug:'community', title:'社区驱动增长', tag:'增长方法', icon:'fa-users', color:'#be185d', cs:true, sections:[
-      { slug:'cold-start','title':'冷启动'},{slug:'ugc','title':'UGC 激励'},{slug:'sharing','title':'用户传播'},{slug:'conversion','title':'社区→产品'}
-    ]},
-    { slug:'content-matrix', title:'内容营销矩阵', tag:'增长方法', icon:'fa-newspaper', color:'#d97706', cs:true, sections:[
-      { slug:'blog','title':'技术博客'},{slug:'youtube','title':'YouTube'},{slug:'newsletter','title':'Newsletter'},{slug:'distribution','title':'多平台分发'}
-    ]},
-    { slug:'cro', title:'转化率优化', tag:'增长方法', icon:'fa-chart-bar', color:'#0e7490', cs:true, sections:[
-      { slug:'signup','title':'注册流程'},{slug:'onboarding','title':'Onboarding'},{slug:'pricing-page','title':'Pricing 页'},{slug:'ab-testing','title':'A/B 测试'}
-    ]},
-    { slug:'paid-growth', title:'付费增长', tag:'增长方法', icon:'fa-ad', color:'#dc2626', cs:true, sections:[
-      { slug:'search','title':'搜索广告'},{slug:'social','title':'社媒广告'},{slug:'affiliate','title':'联盟营销'},{slug:'roi','title':'ROI 归因'}
-    ]},
-    { slug:'international', title:'国际化增长', tag:'增长方法', icon:'fa-globe-asia', color:'#5b21b6', cs:true, sections:[
-      { slug:'ml-seo','title':'多语言 SEO'},{slug:'localization','title':'本地化'},{slug:'markets','title':'市场优先级'}
-    ]},
-    { slug:'data-driven', title:'数据驱动增长', tag:'增长方法', icon:'fa-database', color:'#059669', cs:true, sections:[
-      { slug:'dashboard','title':'增长仪表板'},{slug:'nsm','title':'North Star'},{slug:'experiments','title':'实验框架'},{slug:'cohort','title':'Cohort 分析'}
-    ]},
-    { slug:'case-studies', title:'案例研究库', tag:'增长方法', icon:'fa-flask', color:'#be185d', cs:true, sections:[
-      { slug:'seo-geo','title':'SEO→GEO 转型'},{slug:'cold-start','title':'冷启动路径'},{slug:'zero-budget','title':'零预算增长'},{slug:'index','title':'案例索引'}
+  { title:'更多增长方法', dot:'#d97706',
+    kids:[
+      { slug:'pricing', title:'AI产品定价', ico:'fa-tag', cs:1, S:[{sl:'models',t:'定价模型'},{sl:'freemium',t:'免费增值'}]},
+      { slug:'plg', title:'PLG增长', ico:'fa-rocket', cs:1, S:[{sl:'funnel',t:'PLG漏斗'},{sl:'activation',t:'激活率'}]},
+      { slug:'community', title:'社区驱动增长', ico:'fa-users', cs:1, S:[{sl:'cold-start',t:'冷启动'},{sl:'ugc',t:'UGC激励'}]},
+      { slug:'content-matrix', title:'内容营销矩阵', ico:'fa-newspaper', cs:1, S:[{sl:'blog',t:'技术博客'},{sl:'distribution',t:'多平台'}]},
+      { slug:'cro', title:'转化率优化', ico:'fa-chart-bar', cs:1, S:[{sl:'signup',t:'注册流程'},{sl:'ab-testing',t:'A/B测试'}]},
+      { slug:'paid', title:'付费增长', ico:'fa-ad', cs:1, S:[{sl:'search',t:'搜索广告'},{sl:'social',t:'社媒广告'},{sl:'roi',t:'ROI'}]},
+      { slug:'i18n', title:'国际化增长', ico:'fa-globe-asia', cs:1, S:[{sl:'ml-seo',t:'多语言SEO'},{sl:'localization',t:'本地化'}]},
+      { slug:'data', title:'数据驱动增长', ico:'fa-database', cs:1, S:[{sl:'dashboard',t:'仪表板'},{sl:'experiments',t:'实验框架'}]},
+      { slug:'case-studies', title:'案例研究库', ico:'fa-flask', cs:1, S:[{sl:'seo-geo',t:'转型案例'},{sl:'zero-budget',t:'零预算'}]}
     ]}
-  ]
+];
+
+// Flat index for routing: {g: groupIdx, k: kidIdx}
+function kidIdx(slug){
+  for(let g=0;g<G.length;g++)
+    for(let k=0;k<G[g].kids.length;k++)
+      if(G[g].kids[k].slug===slug) return {g,k};
+  return null;
+}
+
+// Hash routing
+function getRoute(){
+  const h=location.hash.replace('#/','').replace(/\/$/,'');
+  if(!h)return{g:0,k:0,s2:-1};
+  const p=h.split('/');
+  const ki=kidIdx(p[0]);
+  if(!ki)return{g:0,k:0,s2:-1};
+  const kid=G[ki.g].kids[ki.k];
+  if(!p[1]||!kid.S)return{g:ki.g,k:ki.k,s2:-1};
+  const si=kid.S.findIndex(s=>s.sl===p[1]);
+  return{g:ki.g,k:ki.k,s2:si>=0?si:-1};
+}
+
+function pushRoute(g,k,s2){
+  const kid=G[g].kids[k];
+  const s=s2>=0&&kid.S[s2]?kid.S[s2].sl:'';
+  location.hash='/'+kid.slug+(s?'/'+s:'');
+  const st=s2>=0&&kid.S[s2]?kid.S[s2].t+' · ':'';
+  document.title=st+(k>=0?kid.title+' · ':'')+'AI 产品增长手册';
+}
+
+// ===== CONTENT =====
+function tag(c){return'<span class="ch-tag" style="background:'+(c==='#097abb'?'rgba(9,122,187,0.08);color:#097abb;border-color:rgba(9,122,187,0.15)':c==='#0d9488'?'rgba(13,148,136,0.08);color:#0d9488;border-color:rgba(13,148,136,0.15)':'color-mix(in srgb,'+c+'10%,transparent);color:'+c+';border-color:color-mix(in srgb,'+c+'18%,transparent)')+'">'}
+function ico(c){return'<i class="fas '+c+'"></i> '}
+
+function heroHTML(){return'<div style="min-height:70vh;display:flex;flex-direction:column;justify-content:center;max-width:560px">'+tag('#097abb')+ico('fa-book-open')+'综合指南</span><h1 style="font-size:clamp(30px,5vw,48px);">AI 产品<br><span style="background:linear-gradient(135deg,#097abb,#0d9488);-webkit-background-clip:text;background-clip:text;color:transparent;">增长手册</span></h1><p style="font-size:15px;color:var(--text-secondary);margin-bottom:18px">从传统搜索优化到生成式引擎优化，从定价策略到社区驱动增长——一本持续更新的AI产品系统性增长指南。</p><div style="display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--text-muted)"><span><i class="far fa-file-alt"></i> 16章</span><span><i class="fas fa-sync-alt"></i> 持续更新</span></div></div>';}
+
+var CT={
+'seo-tech':function(){return'<div class="ch-header">'+tag('#097abb')+ico('fa-code')+'SEO</span><div class="ch-title">技术优化</div></div><p>搜索引擎爬虫通过抓取你的HTML来理解页面内容。如果技术层面出了问题，内容再好也无法被索引。</p><div class="stat-grid"><div class="stat-card"><div class="stat-val" style="color:#097abb">2.5s</div><div class="stat-lbl">LCP</div></div><div class="stat-card"><div class="stat-val" style="color:#097abb">200ms</div><div class="stat-lbl">INP</div></div><div class="stat-card"><div class="stat-val" style="color:#097abb">0.1</div><div class="stat-lbl">CLS</div></div></div><h3>抓取与索引</h3><p>all重要页面在GSC中显示"已索引"，robots.txt没有误封。</p><h3>AI爬虫管理</h3><div class="table-wrap"><table><thead><tr><th>爬虫</th><th>来源</th><th>策略</th></tr></thead><tbody><tr><td><code>GPTBot</code></td><td>OpenAI</td><td>允许内容页</td></tr><tr><td><code>Google-Extended</code></td><td>Google</td><td><strong>必须允许</strong></td></tr><tr><td><code>PerplexityBot</code></td><td>Perplexity</td><td>允许</td></tr><tr><td><code>ClaudeBot</code></td><td>Anthropic</td><td>允许</td></tr></tbody></table></div><div class="card"><div class="card-header" style="color:#097abb">robots.txt模板</div><pre><code>User-agent: GPTBot\nAllow: /blog/ /guides/\nDisallow: /api/ /dashboard/\nUser-agent: Google-Extended\nAllow: /</code></pre></div><h3>SSR/SSG决策与验证</h3><p><strong>AI产品最常见的SEO陷阱。</strong>大部分AI工具使用React/Next.js，默认CSR可能让爬虫看到空白页。</p><div class="table-wrap"><table><thead><tr><th>方案</th><th>SEO</th><th>适用</th></tr></thead><tbody><tr><td><strong>CSR</strong></td><td>❌</td><td>工具页</td></tr><tr><td><strong>SSR</strong></td><td>✅✅✅</td><td>内容页</td></tr><tr><td><strong>SSG</strong></td><td>✅✅✅</td><td>博客</td></tr></tbody></table></div><div class="card"><div class="card-header" style="color:#097abb">curl模拟Googlebot</div><pre><code>curl -A "Mozilla/5.0 (compatible; Googlebot/2.1)" \\\n  https://domain.com/page | grep "&lt;article\\|&lt;main\\|&lt;h1"</code></pre></div><div class="card"><div class="card-header" style="color:#097abb">GSC URL Inspection</div><pre><code>Search Console → URL Inspection → 测试已发布的网址\n→ 查看"Google看到的HTML"\n✅ 有真实内容而非空的JS入口</code></pre></div><div class="card"><div class="card-header" style="color:#097abb">SSR验证清单</div><table><thead><tr><th>#</th><th>检查项</th></tr></thead><tbody><tr><td>1</td><td>curl Googlebot返回正文</td></tr><tr><td>2</td><td>禁用JS后可阅读</td></tr><tr><td>3</td><td>GSC显示完整HTML</td></tr><tr><td>4</td><td>JSON-LD在服务端HTML中存在</td></tr></tbody></table></div><h3>结构化数据</h3><p><code>FAQPage</code> (⭐⭐⭐⭐⭐)、<code>HowTo</code> (⭐⭐⭐⭐⭐)、<code>SoftwareApplication</code> (⭐⭐⭐⭐⭐)、<code>Article</code> (⭐⭐⭐⭐)。</p>';},
+'seo-content':function(){return'<div class="ch-header">'+tag('#097abb')+ico('fa-pen-fancy')+'SEO</span><div class="ch-title">内容优化</div></div><div class="table-wrap"><table><thead><tr><th>意图</th><th>策略</th></tr></thead><tbody><tr><td>信息型</td><td>定义+解释+引用</td></tr><tr><td>导航型</td><td>品牌页</td></tr><tr><td>商业调查</td><td>对比+功能</td></tr><tr><td>交易型</td><td>产品页</td></tr></tbody></table></div><h3>主题集群</h3><div class="card"><ol style="margin:0"><li>关键词挖掘—Ahrefs Top50</li><li>主题聚类</li><li>Pillar Page 2000+词</li><li>Cluster 5-10篇</li><li>内链矩阵</li></ol></div><h3>E-E-A-T</h3><p>经验·专业·权威·信任。每页有作者署名。</p><h3>Featured Snippets</h3><p>40-60字直接回答放在H2后。</p><div class="hl" style="background:color-mix(in srgb,#d97706 6%,transparent);border-color:color-mix(in srgb,#d97706 18%,transparent)"><h4>📊 Miro案例</h4><p>300+ Use Case页面，每篇固定模板。3年流量<strong>15x</strong>增长。</p></div>';},
+'sge':function(){return'<div class="ch-header">'+tag('#097abb')+ico('fa-robot')+'SEO</span><div class="ch-title">SGE / AI Overviews</div></div><div class="stat-grid"><div class="stat-card"><div class="stat-val" style="color:#d97706">65%+</div><div class="stat-lbl">零点击</div></div><div class="stat-card"><div class="stat-val" style="color:#d97706">37%</div><div class="stat-lbl">AO出现率</div></div></div><h3>被引用因素</h3><ul><li>直接回答—H2后直接答</li><li>权威域名</li><li>FAQ Schema—3.2倍引用提升</li></ul><div class="card"><div class="card-header" style="color:#097abb">SGE测试流程</div><table><thead><tr><th>#</th><th>操作</th></tr></thead><tbody><tr><td>1</td><td>搜索核心查询</td></tr><tr><td>2</td><td>检查触发AO?</td></tr><tr><td>3</td><td>你的内容被引用?</td></tr><tr><td>4</td><td>site:domain+v查询交叉验证</td></tr></tbody></table></div>';},
+'geo-overview':function(){return'<div class="ch-header">'+tag('#0d9488')+ico('fa-globe')+'GEO</span><div class="ch-title">概述</div></div><div class="stat-grid"><div class="stat-card"><div class="stat-val" style="color:#0d9488">156%</div><div class="stat-lbl">引用提升</div></div><div class="stat-card"><div class="stat-val" style="color:#0d9488">35x</div><div class="stat-lbl">AI流量</div></div></div><p>GEO — 让品牌在ChatGPT、Perplexity等AI引擎中被引用。</p><div class="table-wrap"><table><thead><tr><th>维度</th><th>SEO</th><th>GEO</th></tr></thead><tbody><tr><td>目标</td><td>排名第一页</td><td>被AI引用</td></tr><tr><td>指标</td><td>CTR</td><td>Citation Rate</td></tr></tbody></table></div><h3>RAG管道</h3><div class="card"><ol style="margin:0"><li><strong>检索</strong> — 嵌入向量+BM25。段落150-200词</li><li><strong>排序</strong> — Top-K。问题为标题</li><li><strong>生成</strong> — LLM生成。结构化数据</li></ol></div><h3>引用率测试</h3><div class="card"><ol style="margin:0"><li>选20个核心问题</li><li>Perplexity incognito搜索</li><li>记录引用来源</li><li>Rate=被引/总数</li></ol></div>';},
+'geo-content':function(){return'<div class="ch-header">'+tag('#0d9488')+ico('fa-file-alt')+'GEO</span><div class="ch-title">内容策略</div></div><h3>Answer-First</h3><div class="card"><pre><code>## [完整问题标题]\n**直接答案(40-60字):**\n答案是____。\n**展开说明:**\n- 原理\n- 数据或步骤\n**引用来源:**\n- [链接]</code></pre></div><h3>Claim-Based</h3><ol><li><strong>主张</strong> — 观点</li><li><strong>证据</strong> — 数据</li><li><strong>来源</strong> — 链接</li></ol><h3>改写案例</h3><div class="hl" style="background:color-mix(in srgb,#d97706 6%,transparent);border-color:color-mix(in srgb,#d97706 18%,transparent)"><p><strong>❌</strong>"GEO通过优化内容结构提升可见性。"</p><p><strong>✅</strong>"GEO将引用率提升3-5倍。H2直接用完整问题→40-60字答案→FAQ Schema。12周2%→7.5%。"</p></div>';},
+'geo-tech':function(){return'<div class="ch-header">'+tag('#0d9488')+ico('fa-cogs')+'GEO</span><div class="ch-title">技术实现</div></div><div class="card"><div class="card-header" style="color:#0d9488">FAQ Schema模板</div><pre><code>{\n  "@context":"https://schema.org",\n  "@type":"FAQPage",\n  "mainEntity":[{\n    "@type":"Question",\n    "name":"GEO多久见效?",\n    "acceptedAnswer":{"@type":"Answer","text":"4周内Citation Rate提升。"}\n  }]\n}</code></pre></div><h3>LangChain模拟</h3><div class="card"><pre><code>from langchain.text_splitter import RecursiveCharacterTextSplitter\ntext_splitter = RecursiveCharacterTextSplitter(chunk_size=500)\nchunks = text_splitter.split_text(content)\n# FAISS + Embedding → 模拟检索</code></pre></div>';},
+'geo-metrics':function(){return'<div class="ch-header">'+tag('#0d9488')+ico('fa-chart-line')+'GEO</span><div class="ch-title">度量与工具</div></div><div class="table-wrap"><table><thead><tr><th>指标</th><th>定义</th></tr></thead><tbody><tr><td>Citation Rate</td><td>被引/总查询</td></tr><tr><td>BMS</td><td>品牌/(品牌+竞品)</td></tr></tbody></table></div><div class="card"><div class="card-header" style="color:#0d9488">追踪表</div><table><thead><tr><th>周</th><th>查询</th><th>被引</th><th>Rate</th></tr></thead><tbody><tr><td>W1</td><td>20</td><td>3</td><td>15%</td></tr><tr><td>W4</td><td>20</td><td>8</td><td>40%</td></tr></tbody></table></div><div class="tool-grid"><div class="tool-card"><div class="tc-name">GEOflux</div><div class="tc-desc">引用分析</div></div><div class="tool-card"><div class="tc-name">Profound</div><div class="tc-desc">内容策略</div></div></div>';}
 };
 
-// ===== ROUTING =====
-function getRoute(){
-  const p = window.location.pathname;
-  const m = p.match(/\/ai-product-growth\/([^\/]+)(?:\/([^\/]+))?/);
-  if(!m) return { ch:0, s2:-1 };
-  const chSlug = m[1];
-  const s2Slug = m[2] || '';
-  const chIdx = slugs.ch.findIndex(c => c.slug === chSlug);
-  if(chIdx < 0) return { ch:0, s2:-1 };
-  if(!s2Slug) return { ch:chIdx, s2:-1 };
-  const s2Idx = slugs.ch[chIdx].sections.findIndex(s => s.slug === s2Slug);
-  return { ch:chIdx, s2:s2Idx >= 0 ? s2Idx : -1 };
+function csHTML(kid,c){
+  return'<div class="ch-header">'+tag(c)+ico(kid.ico||'fa-tag')+'增长方法</span><div class="ch-title">'+kid.title+'</div></div><div class="cs-block" style="border-color:'+c+'"><div class="cs-icon"><i class="fas fa-clock" style="color:'+c+'"></i></div><div class="cs-title" style="color:'+c+'">🚧 正在撰写</div><ul class="cs-toc">'+kid.S.map(s=>'<li><span class="dot" style="background:'+c+'"></span>'+s.t+'</li>').join('')+'</ul></div>';
 }
 
-function pushRoute(ch, s2){
-  const base = window.location.pathname.replace(/\/reports\/ai-product-growth.*/,'/reports/ai-product-growth');
-  const chSlug = slugs.ch[ch].slug;
-  const s2Slug = s2 >= 0 && slugs.ch[ch].sections[s2] ? slugs.ch[ch].sections[s2].slug : '';
-  const url = base + '/' + chSlug + (s2Slug ? '/' + s2Slug : '') + '/';
-  const path = url.replace(/\/+/g,'/');
-  history.pushState({ch,s2}, '', path);
-  document.title = (s2 >= 0 && s2Slug ? slugs.ch[ch].sections[s2].title+' · ' : '') +
-    (ch > 0 ? slugs.ch[ch].title+' · ' : '') + 'AI 产品增长手册';
-}
-
-// ===== CONTENT BUILDERS =====
-function heroHTML(){
-  return `<div style="min-height:70vh;display:flex;flex-direction:column;justify-content:center;max-width:560px">
-    <span class="ch-tag" style="background:color-mix(in srgb, var(--accent) 12%, transparent);color:var(--accent);border:1px solid color-mix(in srgb, var(--accent) 20%, transparent)"><i class="fas fa-book-open"></i> 综合指南</span>
-    <h1 style="font-size:clamp(30px,5vw,48px);">AI 产品<br><span style="background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">增长手册</span></h1>
-    <p style="font-size:15px;color:var(--text-secondary);margin-bottom:18px">从传统搜索优化到生成式引擎优化，从定价策略到社区驱动增长——一本持续更新的 AI 产品系统性增长指南。</p>
-    <div style="display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--text-muted)"><span><i class="far fa-file-alt"></i> 16 章</span><span><i class="fas fa-sync-alt"></i> 持续更新</span><span><i class="fas fa-tag"></i> v1.0</span></div>
-  </div>`;
-}
-
-function buildAllContent(){
-  const main = document.getElementById('main');
-  main.innerHTML = '';
-  document.querySelectorAll('.ch-page').forEach(p=>p.remove());
-  
-  // Hero
-  let div = document.createElement('div');
-  div.className = 'ch-page';
-  div.id = 'page-0';
-  div.innerHTML = heroHTML();
-  main.appendChild(div);
-
-  // Chapters 1-7 detailed
-  div = document.createElement('div'); div.className = 'ch-page'; div.id = 'page-1';
-  div.innerHTML = ch1HTML(); main.appendChild(div);
-  div = document.createElement('div'); div.className = 'ch-page'; div.id = 'page-2';
-  div.innerHTML = ch2HTML(); main.appendChild(div);
-  div = document.createElement('div'); div.className = 'ch-page'; div.id = 'page-3';
-  div.innerHTML = ch3HTML(); main.appendChild(div);
-  div = document.createElement('div'); div.className = 'ch-page'; div.id = 'page-4';
-  div.innerHTML = ch4HTML(); main.appendChild(div);
-  div = document.createElement('div'); div.className = 'ch-page'; div.id = 'page-5';
-  div.innerHTML = ch5HTML(); main.appendChild(div);
-  div = document.createElement('div'); div.className = 'ch-page'; div.id = 'page-6';
-  div.innerHTML = ch6HTML(); main.appendChild(div);
-  div = document.createElement('div'); div.className = 'ch-page'; div.id = 'page-7';
-  div.innerHTML = ch7HTML(); main.appendChild(div);
-
-  // Coming Soon (8-16)
-  for(let i=8;i<=16;i++){
-    div = document.createElement('div'); div.className = 'ch-page'; div.id = 'page-'+i;
-    div.innerHTML = csHTML(i); main.appendChild(div);
-  }
-}
-
-function chTag(idx){
-  const c = slugs.ch[idx];
-  if(idx<=3) return `<span class="ch-tag" style="background:rgba(9,122,187,0.08);color:#097abb;border:1px solid rgba(9,122,187,0.15)"><i class="fas ${c.icon}"></i> ${c.tag}</span>`;
-  if(idx<=7) return `<span class="ch-tag" style="background:rgba(13,148,136,0.08);color:#0d9488;border:1px solid rgba(13,148,136,0.15)"><i class="fas ${c.icon}"></i> ${c.tag}</span>`;
-  return `<span class="ch-tag" style="background:color-mix(in srgb, ${c.color} 10%, transparent);color:${c.color};border:1px solid color-mix(in srgb, ${c.color} 18%, transparent)"><i class="fas ${c.icon}"></i> ${c.tag}</span>`;
-}
-
-// ===== EXPANDED CHAPTER CONTENT =====
-
-function ch1HTML(){
-  return `<div class="ch-header">${chTag(1)}<div class="ch-title">SEO: 技术层优化</div></div>
-  <p>搜索引擎爬虫通过抓取你的 HTML 来理解页面内容。如果技术层面出了问题，内容再好也无法被索引。本章涵盖从爬虫管理到 SSR 验证的全链路技术 SEO。</p>
-
-  <div class="stat-grid">
-    <div class="stat-card"><div class="stat-val" style="color:#097abb">2.5s</div><div class="stat-lbl">LCP 目标</div></div>
-    <div class="stat-card"><div class="stat-val" style="color:#097abb">200ms</div><div class="stat-lbl">INP 目标</div></div>
-    <div class="stat-card"><div class="stat-val" style="color:#097abb">0.1</div><div class="stat-lbl">CLS 目标</div></div>
-    <div class="stat-card"><div class="stat-val" style="color:#097abb">+26%</div><div class="stat-lbl">SSR 后流量提升</div></div>
-  </div>
-
-  <h3>抓取与索引</h3>
-  <p>Google 通过爬虫程序遍历网页链接，读取页面内容后存入索引库。如果爬虫无法访问你的页面，内容就不会出现在搜索结果中。</p>
-  <p><strong>关键检查项：</strong></p>
-  <ul>
-    <li>所有重要页面在 GSC 中显示"已索引"，不是"已发现但未索引"</li>
-    <li>robots.txt 没有误封关键路径</li>
-    <li>页面返回 200（非 302/404/500）</li>
-    <li>CSS 和 JS 没有被 robots.txt 或 noindex 标签屏蔽</li>
-  </ul>
-
-  <div class="divider"></div>
-  <h3>AI 爬虫管理</h3>
-  <p>随着 AI 搜索引擎的崛起，需要精准控制各类 AI 爬虫对站点的访问。核心原则：允许爬虫抓取有信息价值的内容页，限制对工具/API/管理后台的访问。</p>
-  <div class="table-wrap"><table>
-    <thead><tr><th>爬虫 User-Agent</th><th>来源</th><th>推荐策略</th></tr></thead>
-    <tbody>
-      <tr><td><code>GPTBot</code></td><td>OpenAI (ChatGPT Search)</td><td>允许内容路径，屏蔽 <code>/api/ /dashboard/</code></td></tr>
-      <tr><td><code>Google-Extended</code></td><td>Google (AI Overviews / Gemini)</td><td><strong>必须允许</strong>——直接影响 AI 引用</td></tr>
-      <tr><td><code>PerplexityBot</code></td><td>Perplexity AI</td><td>允许抓取，推荐 <code>Disallow: /api/</code></td></tr>
-      <tr><td><code>ClaudeBot</code></td><td>Anthropic</td><td>允许主要内容路径</td></tr>
-      <tr><td><code>Applebot-Extended</code></td><td>Apple Intelligence</td><td>推荐允许</td></tr>
-      <tr><td><code>Bytespider</code></td><td>ByteDance</td><td>按需放行</td></tr>
-    </tbody>
-  </table></div>
-
-  <div class="card">
-    <div class="card-header" style="color:#097abb"><i class="fas fa-file-alt"></i> robots.txt 完整模板</div>
-    <pre><code># AI 爬虫精细化管理策略
-User-agent: GPTBot
-Allow: /blog/
-Allow: /guides/
-Disallow: /api/
-Disallow: /dashboard/
-Disallow: /search/
-
-User-agent: Google-Extended
-Allow: /
-# 关键：不要屏蔽 Google-Extended，否则失去 AI Overviews 引用机会
-
-User-agent: PerplexityBot
-Allow: /blog/
-Allow: /guides/
-Disallow: /api/
-
-User-agent: *
-Disallow: /admin/
-Disallow: /private/
-
-Sitemap: https://yourdomain.com/sitemap.xml</code></pre>
-  </div>
-
-  <div class="divider"></div>
-  <h3>SSR / SSG 决策与验证</h3>
-  <p><strong>这是 AI 产品最常见的 SEO 陷阱。</strong>大部分 AI 工具使用 React、Next.js、Nuxt 等 JS 框架，默认是 CSR（客户端渲染），搜索引擎爬虫可能看到空白页面。</p>
-
-  <h4>渲染方案对比</h4>
-  <div class="table-wrap"><table>
-    <thead><tr><th>方案</th><th>描述</th><th>SEO 友好度</th><th>适用场景</th></tr></thead>
-    <tbody>
-      <tr><td><strong>CSR</strong></td><td>浏览器执行 JS 后渲染</td><td>❌ 爬虫可能看不到内容</td><td>工具页、后台</td></tr>
-      <tr><td><strong>SSR</strong></td><td>每次请求服务端渲染 HTML</td><td>✅✅✅ 完整 HTML</td><td>内容页、SEO 敏感页</td></tr>
-      <tr><td><strong>SSG</strong></td><td>构建时生成静态 HTML</td><td>✅✅✅ 最优</td><td>博客、文档、不变内容</td></tr>
-      <tr><td><strong>ISR</strong></td><td>SSG + 增量更新</td><td>✅✅✅ 最优</td><td>内容频繁更新的站点</td></tr>
-      <tr><td><strong>Dynamic Rendering</strong></td><td>对爬虫返回预渲染内容</td><td>✅✅ 折中方案</td><td>现有 CSR 应用的补充</td></tr>
-    </tbody>
-  </table></div>
-
-  <h4>SSR 是否生效的验证方法</h4>
-  <p>不要相信"我以为 SSR 开了"——<strong>必须逐项验证</strong>。</p>
-
-  <div class="card">
-    <div class="card-header" style="color:#097abb"><i class="fas fa-terminal"></i> 方法 1：用 curl 模拟爬虫</div>
-    <pre><code># 模拟 Googlebot 访问，检查返回的 HTML 是否包含正文内容
-curl -A "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" \
-  https://yourdomain.com/page \
-  | grep -c "&lt;article\|&lt;main\|&lt;h1\|&lt;p"
-
-# 如果返回 0 → SSR 可能没生效或爬虫被屏蔽
-# 如果返回 >0 → 有内容，但还需要检查内容是否完整
-
-# 查看所有带 ID 或 class 的容器
-curl -A "Googlebot" https://yourdomain.com/page | grep -o 'id="[^"]*"\|class="[^"]*"'</code></pre>
-  </div>
-
-  <div class="card">
-    <div class="card-header" style="color:#097abb"><i class="fas fa-search"></i> 方法 2：禁用 JS 测试</div>
-    <pre><code># 浏览器中禁用 JavaScript（DevTools → Settings → Disable JS）
-# 然后加载页面试试看：
-# ✅ 页面结构和核心内容可见 → SSR 生效
-# ❌ 页面空白或只显示 loading → SSR 未生效
-
-# Linux 命令行：用 Lynx 纯文本浏览器
-apt-get install lynx -y
-lynx -dump https://yourdomain.com/page | head -30</code></pre>
-  </div>
-
-  <div class="card">
-    <div class="card-header" style="color:#097abb"><i class="fas fa-chrome"></i> 方法 3：Google Search Console URL Inspection</div>
-    <pre><code>1. 打开 Google Search Console → URL Inspection
-2. 输入你的页面 URL
-3. 点击「测试已发布的网址」
-4. 查看「Google 看到的 HTML」标签页
-5. 🔍 确认你看到的 HTML 包含真实内容，而非空的 JS 入口
-
-关键检查点：
-✅ 页面标题（&lt;title&gt;）包含关键词
-✅ meta description 存在且有内容
-✅ h1/h2 标签包含预期文字
-✅ 正文内容在 HTML 中可见
-✅ JSON-LD 结构化数据存在
-❌ 如果 HTML 只有 &lt;div id="root"&gt;&lt;/div&gt; + &lt;script&gt; → CSR，搜索引擎可能不索引</code></pre>
-  </div>
-
-  <div class="card">
-    <div class="card-header" style="color:#097abb"><i class="fas fa-code-branch"></i> 方法 4：Puppeteer 对比测试</div>
-    <pre><code># Node.js 脚本：对比 SSR HTML vs JS 渲染后 HTML
-const puppeteer = require('puppeteer');
-
-(async () => {
-  const browser = await puppeteer.launch();
-
-  // 1. 直接 HTTP 请求（SSR 内容）
-  const res = await fetch('https://yourdomain.com/page');
-  const serverHTML = await res.text();
-
-  // 2. 完整浏览器渲染（JS 执行后）
-  const page = await browser.newPage();
-  await page.goto('https://yourdomain.com/page', {waitUntil:'networkidle0'});
-  const clientHTML = await page.content();
-
-  // 3. 对比差异
-  const serverWords = serverHTML.replace(/<[^>]*>/g,'').split(/\\s+/).length;
-  const clientWords = clientHTML.replace(/<[^>]*>/g,'').split(/\\s+/).length;
-
-  console.log('SSR 版本字数:', serverWords);
-  console.log('JS 渲染后字数:', clientWords);
-
-  // 如果 SSR 字数接近 JS 渲染 → SSR 生效
-  // 如果 SSR 字数远小于 JS 渲染 → SSR 可能只渲染了壳
-})().catch(console.error);</code></pre>
-  </div>
-
-  <div class="card">
-    <div class="card-header" style="color:#097abb"><i class="fas fa-list-check"></i> SSR 验证检查清单</div>
-    <table><thead><tr><th>#</th><th>检查项</th><th>验证方法</th></tr></thead><tbody>
-      <tr><td>1</td><td>curl 返回包含正文的 HTML</td><td><code>curl -A "Googlebot" URL | grep "正文关键词"</code></td></tr>
-      <tr><td>2</td><td>禁用 JS 后页面可阅读</td><td>浏览器 DevTools → Disable JS → reload</td></tr>
-      <tr><td>3</td><td>GSC URL Inspection 显示完整 HTML</td><td>Search Console → 测试已发布的网址</td></tr>
-      <tr><td>4</td><td>JSON-LD 在服务端 HTML 中存在</td><td><code>curl URL | grep "application/ld+json"</code></td></tr>
-      <tr><td>5</td><td>爬虫抓取预算未浪费</td><td>GSC → 抓取统计 → 平均抓取时间 &lt; 1s</td></tr>
-      <tr><td>6</td><td>不同爬虫返回的 HTML 一致</td><td>对比 Googlebot / Bingbot / generic</td></tr>
-    </tbody></table>
-  </div>
-
-  <h4>Next.js 项目 SSR 验证专项</h4>
-  <div class="card">
-    <pre><code># 1. 确认构建方式——查看 package.json
-grep "next build" package.json
-# "build": "next build && next export" → SSG (静态导出)
-# "build": "next build" → SSR (需要 Node 服务)
-
-# 2. 检查页面是否用了 getServerSideProps
-grep -r "getServerSideProps" pages/ app/
-# ✅ 有 → 该页面是 SSR
-# ❌ 没有 → 可能是 SSG 或 CSR
-
-# 3. 生产环境测试：看返回的 HTML 是否包含动态数据
-curl https://yourdomain.com/product/123 | grep "product-data"
-
-# 4. 检查 response header：是否有 x-middleware-* 等 SSR 特征
-curl -I https://yourdomain.com/page</code></pre>
-  </div>
-
-  <div class="hl" style="background:color-mix(in srgb, #d97706 6%, transparent);border-color:color-mix(in srgb, #d97706 18%, transparent)">
-    <h4>案例：某 AI 工具 SSR 缺失导致 0 索引</h4>
-    <p>某 AI 写作工具使用 Next.js 的 CSR 模式（所有数据在客户端通过 API 加载）。上线 3 个月后，GSC 显示 1500 个页面"已发现但未索引"。调查发现 Googlebot 看到的 HTML 只有一个 <code>&lt;div id="root"&gt;&lt;/div&gt;</code>。</p>
-    <p><strong>修复：</strong>将核心内容页从 CSR 切换到 SSR（使用 <code>getServerSideProps</code>），将 FAQ 数据内联到初始 HTML 中。</p>
-    <p><strong>结果：</strong>4 周内索引率从 5% 提升到 78%，自然流量增长 3x。</p>
-  </div>
-
-  <div class="divider"></div>
-  <h3>结构化数据 (Schema.org)</h3>
-  <p>结构化数据帮助搜索引擎理解内容语境，直接影响搜索引擎结果展示（Rich Snippets）和 AI 引擎的 RAG 检索质量。</p>
-  <div class="table-wrap"><table>
-    <thead><tr><th>Schema 类型</th><th>用途</th><th>SEO 影响</th></tr></thead>
-    <tbody>
-      <tr><td><code>FAQPage</code></td><td>问答对提取</td><td>⭐⭐⭐⭐⭐ 直接提升 AI Overviews 引用率</td></tr>
-      <tr><td><code>HowTo</code></td><td>教程步骤提取</td><td>⭐⭐⭐⭐⭐ Rich snippet + AI 引用</td></tr>
-      <tr><td><code>Article</code></td><td>博客/新闻</td><td>⭐⭐⭐⭐ Top stories 候选</td></tr>
-      <tr><td><code>SoftwareApplication</code></td><td>AI 产品工具页</td><td>⭐⭐⭐⭐⭐ AI 引擎直接读取产品信息</td></tr>
-      <tr><td><code>Product</code></td><td>产品页</td><td>⭐⭐⭐⭐ 购物体验增强</td></tr>
-      <tr><td><code>BreadcrumbList</code></td><td>面包屑导航</td><td>⭐⭐⭐ 搜索结果展示路径</td></tr>
-    </tbody>
-  </table></div>
-
-  <div class="card">
-    <div class="card-header" style="color:#097abb"><i class="fas fa-code"></i> SoftwareApplication JSON-LD 模板</div>
-    <pre><code>{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "你的 AI 产品名",
-  "applicationCategory": "AIApplication",
-  "operatingSystem": "Web",
-  "description": "简短的产品描述",
-  "url": "https://yourproduct.com",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  },
-  "featureList": "功能1, 功能2, 功能3"
-}</code></pre>
-  </div>
-
-  <h3>技术 SEO 周检查清单</h3>
-  <div class="table-wrap"><table>
-    <thead><tr><th>时间</th><th>任务</th><th>工具</th><th>验收标准</th></tr></thead>
-    <tbody>
-      <tr><td>周一</td><td>检查 GSC 抓取统计</td><td>GSC</td><td>抓取次数无异常下降</td></tr>
-      <tr><td>周二</td><td>跑一轮 Core Web Vitals</td><td>PageSpeed Insights</td><td>LCP<2.5s, INP<200ms, CLS<0.1</td></tr>
-      <tr><td>周三</td><td>Screaming Frog 爬虫审计</td><td>Screaming Frog</td><td>无 4xx/5xx, 重定向链<3, 无重复 title</td></tr>
-      <tr><td>周四</td><td>对比数据趋势</td><td>Looker Studio</td><td>索引量、展示量不降</td></tr>
-      <tr><td>周五</td><td>修复本周发现的 issues</td><td>—</td><td>低 hanging fruit 清零</td></tr>
-    </tbody>
-  </table></div>`;
-}
-
-function ch2HTML(){
-  return `<div class="ch-header">${chTag(2)}<div class="ch-title">SEO: 内容层优化</div></div>
-  <p>超越关键词匹配，进入语义搜索与实体优化的时代。搜索引擎不再只看关键词密度，而是理解页面是否完整地回答了用户的查询。</p>
-
-  <h3>语义搜索与意图匹配</h3>
-  <div class="table-wrap"><table>
-    <thead><tr><th>意图</th><th>查询示例</th><th>内容策略</th><th>SEO 信号</th></tr></thead>
-    <tbody>
-      <tr><td>信息型</td><td>"什么是 GEO"</td><td>定义+深度解释+权威引用</td><td>Featured Snippet, People Also Ask</td></tr>
-      <tr><td>导航型</td><td>"ChatGPT 登录"</td><td>品牌页+快捷入口</td><td>品牌搜索量</td></tr>
-      <tr><td>商业调查</td><td>"最佳 AI 写作工具2025"</td><td>对比+功能+价格表</td><td>Buying intent, 对比搜索词排名</td></tr>
-      <tr><td>交易型</td><td>"购买 SEO 工具"</td><td>产品页+购买入口+信任信号</td><td>转化率, 品牌词竞争</td></tr>
-    </tbody>
-  </table></div>
-
-  <h3>主题集群搭建 6 步法</h3>
-  <div class="card">
-    <ol style="margin:0">
-      <li><strong>关键词挖掘</strong> — 用 Ahrefs/Semrush 拉取领域前 50 个信息型关键词，导出 CSV</li>
-      <li><strong>主题聚类</strong> — 用 Keyword Insights 或 Cluster AI 自动聚类成 5-8 个核心主题组</li>
-      <li><strong>创建 Pillar Page</strong> — 每个主题写一篇 2000+ 词的深度文章，覆盖该主题全貌</li>
-      <li><strong>衍生 Cluster Content</strong> — 每篇 Pillar 衍生 5-10 篇子主题文章（每篇 800-1200 词）</li>
-      <li><strong>内链矩阵</strong> — 所有 Cluster 文章链接回 Pillar，Pillar 内用锚文链接到所有 Cluster</li>
-      <li><strong>监控迭代</strong> — GSC 中跟踪集群关键词的展示量增长（目标：3 个月内展示量翻倍）</li>
-    </ol>
-  </div>
-
-  <h3>E-E-A-T 框架实践</h3>
-  <div class="stat-grid">
-    <div class="stat-card"><div class="stat-val" style="color:#097abb">E</div><div class="stat-lbl">Experience</div></div>
-    <div class="stat-card"><div class="stat-val" style="color:#097abb">E</div><div class="stat-lbl">Expertise</div></div>
-    <div class="stat-card"><div class="stat-val" style="color:#097abb">A</div><div class="stat-lbl">Authority</div></div>
-    <div class="stat-card"><div class="stat-val" style="color:#097abb">T</div><div class="stat-lbl">Trust</div></div>
-  </div>
-  <p><strong>经验</strong> — 使用第一人称的实际使用案例、产品评测截图。不要泛泛而谈，展示你真的用过。</p>
-  <p><strong>专业</strong> — 每个内容页面必须有明确的作者署名，附带作者简介链接到 LinkedIn/GitHub。</p>
-  <p><strong>权威</strong> — 外部引用链接到知名媒体/研究机构的原始数据。被行业媒体引用也是重要的权威信号。</p>
-  <p><strong>信任</strong> — 标注信息源的发布日期和验证状态。定期更新旧内容。</p>
-
-  <div class="divider"></div>
-  <h3>Featured Snippets 优化</h3>
-  <p>精选摘要（位置 0）是获得零点击搜索流量和 AI Overviews 引用的关键。以下为经过验证的优化方法：</p>
-  <div class="table-wrap"><table>
-    <thead><tr><th>类型</th><th>优化方法</th><th>AI Overviews 影响</th></tr></thead>
-    <tbody>
-      <tr><td>段落式</td><td>40-60 字直接回答放在 H2/H3 标题后立刻</td><td>⭐⭐⭐⭐⭐</td></tr>
-      <tr><td>列表式</td><td>步骤/清单内容用有序列表或无序列表</td><td>⭐⭐⭐⭐</td></tr>
-      <tr><td>表格式</td><td>对比数据用 table 标签呈现</td><td>⭐⭐⭐⭐</td></tr>
-      <tr><td>视频式</td><td>视频关键步骤打时间戳</td><td>⭐⭐⭐</td></tr>
-    </tbody>
-  </table></div>
-
-  <div class="hl" style="background:color-mix(in srgb, #d97706 6%, transparent);border-color:color-mix(in srgb, #d97706 18%, transparent)">
-    <h4>📊 案例：Miro 的 Use Case 内容矩阵</h4>
-    <p>Miro 从一篇白板工具介绍起步，逐步扩展为 300+ Use Case 页面。每个页面使用固定模板：定义 → 场景 → 步骤 → 模板下载 → CTA，确保内容质量一致性和规模化能力。</p>
-    <p><strong>结果：</strong>3 年内自然流量从 200K → 3M/月，15x 增长。</p>
-    <p><strong>可复制的模板：</strong></p>
-    <pre><code>---
-title: "用 Miro 做 [场景]"
-template: use-case
----
-## 什么是 [场景]
-定义 + 背景
-
-## 为什么用 Miro 做 [场景]
-3 个核心原因 + 截图
-
-## 步骤
-Step 1: ...
-Step 2: ...
-Step 3: ...
-
-## 模板
-[一键复制 Miro 模板]
-
-## CTA
-免费开始使用</code></pre>
-  </div>`;
-}
-
-function ch3HTML(){
-  return `<div class="ch-header">${chTag(3)}<div class="ch-title">SGE / AI Overviews</div></div>
-  <div class="stat-grid">
-    <div class="stat-card"><div class="stat-val" style="color:#d97706">65%+</div><div class="stat-lbl">零点击搜索</div></div>
-    <div class="stat-card"><div class="stat-val" style="color:#d97706">37%</div><div class="stat-lbl">AO 出现率</div></div>
-    <div class="stat-card"><div class="stat-val" style="color:#d97706">3.2x</div><div class="stat-lbl">FAQ Schema 引用倍率</div></div>
-  </div>
-  <p>Google 的 AI Overviews（原 SGE）正在重塑搜索格局。Over 65% 的搜索现在为零点击，AI Overviews 在信息型查询中的出现率约 37%。</p>
-  <h3>被引用核心因素</h3>
-  <ul><li><strong>直接回答</strong> — 页面在 H2/H3 标题后直接回答问题，不铺垫、不绕圈</li>
-  <li><strong>权威域名</strong> — 高 DR 域名的内容被引用的概率显著更高</li>
-  <li><strong>FAQ Schema</strong> — 2000+ 查询抽样测试显示，FAQ Schema 页面引用率是未实施的 3.2 倍</li>
-  <li><strong>内容新鲜度</strong> — AO 偏好近期更新（90 天内修改过的页面）</li></ul>
-  <h3>SGE 触发测试</h3>
-  <div class="card"><div class="card-header" style="color:#097abb"><i class="fas fa-clipboard-check"></i> 每周 5 步测试流程</div><table><thead><tr><th>步骤</th><th>操作</th><th>记录</th></tr></thead><tbody>
-    <tr><td>1</td><td>搜索 10 个核心信息型查询</td><td>触发 AO? Y/N</td></tr>
-    <tr><td>2</td><td>检查 AO 中是否有链接引用</td><td>引用源来源 URL</td></tr>
-    <tr><td>3</td><td>你的内容是否被引用</td><td>Y/N + 引用位置</td></tr>
-    <tr><td>4</td><td>site:domain + query 交叉验证</td><td>页面已索引? Y/N</td></tr>
-    <tr><td>5</td><td>竞品是否被引用而你没有</td><td>竞品做了哪些</td></tr>
-  </tbody></table></div>`;
-}
-
-function ch4HTML(){
-  return `<div class="ch-header">${chTag(4)}<div class="ch-title">什么是 GEO？</div></div>
-  <div class="stat-grid"><div class="stat-card"><div class="stat-val" style="color:#0d9488">156%</div><div class="stat-lbl">品牌引用提升</div></div><div class="stat-card"><div class="stat-val" style="color:#0d9488">35x</div><div class="stat-lbl">AI 流量增长</div></div></div>
-  <p>GEO（Generative Engine Optimization）是让品牌在 ChatGPT、Perplexity、AI Overviews 等 AI 引擎中被引用的优化实践。</p>
-  <div class="table-wrap"><table><thead><tr><th>维度</th><th>SEO</th><th>GEO</th></tr></thead><tbody><tr><td>目标</td><td>排名第一页</td><td>被 AI 引用为源</td></tr><tr><td>受众</td><td>爬虫</td><td>LLM + RAG</td></tr><tr><td>指标</td><td>CTR, Rankings</td><td>Citation Rate, BMS</td></tr></tbody></table></div>
-  <h3>RAG 管道拆解</h3>
-  <div class="card"><ol style="margin:0"><li><strong>检索</strong> — 嵌入向量 + BM25 匹配。优化：段落 150-200 词，核心术语在开头</li><li><strong>排序</strong> — Top-K 相关片段排序。优化：问题作为段落标题，答案在片段开头</li><li><strong>生成</strong> — LLM 用片段生成回答。优化：结构化数据 + 引用来源标记</li></ol></div>
-  <h3>引用率基线测试</h3>
-  <div class="card"><ol style="margin:0"><li>选取 20 个领域核心问题</li><li>Perplexity incognito 逐个搜索</li><li>记录每个答案的引用来源</li><li>统计品牌被引次数</li><li>Citation Rate = 被引/总数 × 100%</li></ol></div>`;
-}
-
-function ch5HTML(){
-  return `<div class="ch-header">${chTag(5)}<div class="ch-title">GEO 内容策略</div></div>
-  <h3>Answer-First 写作</h3>
-  <p>AI 引擎处理的查询以对话形式出现。内容必须直接回答问题。</p>
-  <div class="card">
-    <div class="card-header" style="color:#0d9488"><i class="fas fa-arrow-right"></i> 写作模板</div>
-    <pre><code>## [完整问题标题]
-**直接答案（40-60 字，含关键数据）：**
-答案是 ____。据 ____ 数据，____。
-
-**展开说明（2-3 段）：**
-- 原理或背景
-- 具体数据或步骤
-
-**引用来源：**
-- [来源链接]</code></pre>
-  </div>
-  <h3>Claim-Based 写作</h3>
-  <div class="card"><ol style="margin:0"><li><strong>主张</strong> — 提出明确观点</li><li><strong>证据</strong> — 支持数据</li><li><strong>来源</strong> — 可验证链接</li></ol></div>
-  <h3>事实密度</h3>
-  <div class="stat-grid"><div class="stat-card"><div class="stat-val" style="color:#0d9488">1个</div><div class="stat-lbl">每 150 字一个事实</div></div><div class="stat-card"><div class="stat-val" style="color:#0d9488">2-3个</div><div class="stat-lbl">每节引用</div></div></div>
-  <div class="hl" style="background:color-mix(in srgb, #d97706 6%, transparent);border-color:color-mix(in srgb, #d97706 18%, transparent)"><h4>改写前后对比</h4><p><strong>❌</strong> "GEO 通过优化内容结构提升可见性。"</p><p><strong>✅</strong> "GEO 将引用率提升 3-5 倍。方法：H2 用完整问题 → 40-60 字答案 → FAQ Schema。案例：12 周内 Citation Rate 从 2%→7.5%。"</p></div>`;
-}
-
-function ch6HTML(){
-  return `<div class="ch-header">${chTag(6)}<div class="ch-title">GEO 技术实现</div></div>
-  <h3>语义 HTML 与结构化数据</h3>
-  <p>AI 引擎的 RAG 管道依赖 HTML 结构进行内容分割和提取。正确的语义标签和 Schema 是 GEO 的基础。</p>
-  <div class="card">
-    <div class="card-header" style="color:#0d9488"><i class="fas fa-code"></i> FAQ Schema 完整模板</div>
-    <pre><code>{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [{
-    "@type": "Question",
-    "name": "GEO 多久见效？",
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "FAQ Schema 实施后 4 周内 Citation Rate 开始提升，BMS 需 8-12 周才有显著变化。"
-    }
-  }]
-}</code></pre>
-  </div>
-  <h3>LangChain 模拟 RAG 检索</h3>
-  <div class="card">
-    <pre><code>from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import FAISS
-from langchain_openai import OpenAIEmbeddings
-
-text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size=500, chunk_overlap=50)
-chunks = text_splitter.split_text(your_content)
-vectorstore = FAISS.from_texts(chunks, OpenAIEmbeddings())
-results = vectorstore.similarity_search("GEO 怎么开始")
-print(results[0].page_content)  # 检查你的内容是否被检索到</code></pre>
-  </div>`;
-}
-
-function ch7HTML(){
-  return `<div class="ch-header">${chTag(7)}<div class="ch-title">GEO 度量与工具</div></div>
-  <div class="table-wrap"><table><thead><tr><th>指标</th><th>定义</th></tr></thead><tbody>
-    <tr><td><strong>Citation Rate</strong></td><td>被引次数 / 总查询数 × 100%</td></tr>
-    <tr><td><strong>BMS</strong></td><td>品牌引用 / (品牌 + 竞品引用) × 100%</td></tr>
-    <tr><td><strong>AI SoV</strong></td><td>品牌在回答中的字符占比</td></tr>
-  </tbody></table></div>
-  <div class="card"><div class="card-header" style="color:#0d9488"><i class="fas fa-calculator"></i> 追踪表</div><table><thead><tr><th>周</th><th>查询数</th><th>被引</th><th>Rate</th></tr></thead><tbody><tr><td>W1</td><td>20</td><td>3</td><td>15%</td></tr><tr><td>W2</td><td>20</td><td>5</td><td>25%</td></tr><tr><td>W4</td><td>20</td><td>8</td><td>40%</td></tr></tbody></table></div>
-  <h3>工具</h3><div class="tool-grid"><div class="tool-card"><div class="tc-name">GEOflux</div><div class="tc-desc">引用分析</div></div><div class="tool-card"><div class="tc-name">Profound</div><div class="tc-desc">内容策略</div></div><div class="tool-card"><div class="tc-name">Goodie</div><div class="tc-desc">引用监控</div></div></div>`;
-}
-
-function csHTML(idx){
-  const c = slugs.ch[idx];
-  return `<div class="ch-header"><span class="ch-tag" style="background:color-mix(in srgb, ${c.color} 10%, transparent);color:${c.color};border:1px solid color-mix(in srgb, ${c.color} 18%, transparent)"><i class="fas ${c.icon}"></i> ${c.tag}</span><div class="ch-title">${c.title}</div></div>
-  <div class="cs-block" style="border-color:${c.color}"><div class="cs-icon"><i class="fas fa-clock" style="color:${c.color}"></i></div><div class="cs-title" style="color:${c.color}">🚧 本章正在撰写中</div><div class="cs-desc">内容规划中，敬请期待。</div><ul class="cs-toc">${c.sections.map(s=>'<li><span class="dot" style="background:'+c.color+'"></span>'+(s.title||'')+'</li>').join('')}</ul></div>`;
-}
-
-// ===== INIT & NAVIGATION =====
-buildAllContent();
-
-function navigate(ch, s2){
-  // Show page
-  document.querySelectorAll('.ch-page').forEach(p=>p.classList.remove('active'));
-  const page = document.getElementById('page-'+ch);
-  if(page) page.classList.add('active');
-
-  // Sidebar L1
-  document.querySelectorAll('.tree-l1').forEach(el=>{
-    el.classList.remove('active');
-    if(parseInt(el.dataset.ch)===ch) el.classList.add('active');
-  });
-
-  // Sub-menu
-  document.querySelectorAll('.sub-wrap').forEach(w=>{
-    w.classList.remove('open');
-    w.querySelectorAll('.tree-l2').forEach(x=>x.classList.remove('active'));
-  });
-  document.querySelectorAll('.arrow').forEach(a=>a.classList.remove('open'));
-
-  const sub = document.querySelector('.sub-wrap[data-sub="'+ch+'"]');
-  const arrow = document.querySelector('[data-arrow="'+ch+'"]');
-  if(sub){ sub.classList.add('open'); if(arrow) arrow.classList.add('open'); }
-
-  // Sub-section active
-  if(s2 !== undefined && s2 >= 0){
-    const el = document.querySelector('.tree-l2[data-ch="'+ch+'"][data-s2="'+s2+'"]');
-    if(el){
-      document.querySelectorAll('.tree-l2[data-ch="'+ch+'"]').forEach(x=>x.classList.remove('active'));
-      el.classList.add('active');
-    }
-  }
-
-  pushRoute(ch, s2);
-}
+// ===== BUILD =====
+var main=document.getElementById('main'),sb=document.getElementById('sidebar');
+var colMap={'#097abb':'#097abb','#0d9488':'#0d9488','#d97706':'#d97706'};
 
 // Build sidebar
-(function buildSidebar(){
-  const sb = document.getElementById('sidebar');
-  sb.innerHTML = '<div class="sidebar-label"><i class="fas fa-list"></i> 目录</div>';
-  slugs.ch.forEach((ch,i)=>{
-    if(i===0) return;
-    const aro = ch.sections.length && !ch.cs ? '<span class="arrow" data-arrow="'+i+'"><i class="fas fa-chevron-right"></i></span>' : '';
-    const ico = '<span class="ico"><i class="fas '+ch.icon+'" style="color:'+ch.color+'"></i></span>';
-    const csb = ch.cs ? '<span class="badge-cs">CS</span>' : '';
-    sb.innerHTML += '<div class="tree-item"><div class="tree-l1'+(ch.cs?' cs':'')+'" data-ch="'+i+'">'+aro+ico+'<span>'+ch.title+'</span>'+csb+'</div>';
-    if(ch.sections.length && !ch.cs){
-      sb.innerHTML += '<div class="sub-wrap" data-sub="'+i+'">';
-      ch.sections.forEach((s,j)=>{
-        sb.innerHTML += '<div class="tree-l2" data-ch="'+i+'" data-s2="'+j+'">'+s.title+'</div>';
-      });
-      sb.innerHTML += '</div>';
-    }
-    sb.innerHTML += '</div>';
+function buildSidebar(){
+  var h='<div class="sidebar-label"><i class="fas fa-list"></i> 目录</div>';
+  G.forEach(function(g,gi){
+    h+='<div class="gr"><span class="dot" style="background:'+g.dot+'"></span> '+g.title+'</div>';
+    g.kids.forEach(function(kid,ki){
+      var ar=kid.S.length?'<span class="ar" data-gi="'+gi+'" data-ki="'+ki+'"><i class="fas fa-chevron-right"></i></span>':'';
+      var io='<span class="ico"><i class="fas '+kid.ico+'" style="color:'+g.dot+'"></i></span>';
+      var csb=kid.cs?'<span class="badge-cs">CS</span>':'';
+      h+='<div class="tr"><div class="l2'+(kid.cs?' cs':'')+'" data-g="'+gi+'" data-k="'+ki+'">'+ar+io+'<span>'+kid.title+'</span>'+csb+'</div>';
+      if(kid.S.length&&!kid.cs){
+        h+='<div class="sw" data-sw="'+gi+'-'+ki+'">';
+        kid.S.forEach(function(s,sj){h+='<div class="l3" data-g="'+gi+'" data-k="'+ki+'" data-s="'+sj+'">'+s.t+'</div>';});
+        h+='</div>';
+      }
+      h+='</div>';
+    });
   });
-})();
+  sb.innerHTML=h;
+}
+buildSidebar();
 
-// Click delegation
-document.getElementById('sidebar').addEventListener('click', function(e){
-  const l1 = e.target.closest('.tree-l1');
-  const l2 = e.target.closest('.tree-l2');
-  const arrow = e.target.closest('.arrow');
-  if(arrow){
-    const idx = parseInt(arrow.parentElement.dataset.ch);
-    const sub = document.querySelector('.sub-wrap[data-sub="'+idx+'"]');
-    if(sub){ sub.classList.toggle('open'); arrow.classList.toggle('open'); }
-    return;
-  }
-  if(l2){
-    navigate(parseInt(l2.dataset.ch), parseInt(l2.dataset.s2));
-    return;
-  }
-  if(l1 && !l1.classList.contains('cs')) navigate(parseInt(l1.dataset.ch));
-});
+// Build content pages
+function buildContent(){
+  main.innerHTML='<div class="ch-page active" id="ph">'+heroHTML()+'</div>';
+  G.forEach(function(g,gi){
+    g.kids.forEach(function(kid,ki){
+      var d=document.createElement('div');d.className='ch-page';d.id='p'+gi+'-'+ki;
+      d.innerHTML=kid.cs?csHTML(kid,g.dot):(CT[kid.slug]?CT[kid.slug]():'<p>内容加载中</p>');
+      main.appendChild(d);
+    });
+  });
+}
+buildContent();
 
-// SPA redirect fix: check if redirected from 404.html
-const redirectPath = sessionStorage.getItem('spaRedirect');
-if (redirectPath) {
-  sessionStorage.removeItem('spaRedirect');
-  // Parse the redirected path to extract route (it already has the full path)
-  // Replace current history entry silently
-  history.replaceState(null, '', redirectPath);
+// Navigation
+function nav(gi,ki,s2){
+  // Show page
+  document.querySelectorAll('.ch-page').forEach(function(p){p.classList.remove('active');});
+  var pid='p'+gi+'-'+ki;
+  var pg=document.getElementById(pid);
+  if(!pg)pg=document.getElementById('ph');
+  if(pg)pg.classList.add('active');
+  // Update L2
+  document.querySelectorAll('.l2').forEach(function(el){el.classList.remove('active');if(parseInt(el.dataset.g)===gi&&parseInt(el.dataset.k)===ki)el.classList.add('active');});
+  // Subs
+  document.querySelectorAll('.sw').forEach(function(w){w.classList.remove('open');w.querySelectorAll('.l3').forEach(function(x){x.classList.remove('active');});});
+  document.querySelectorAll('.ar').forEach(function(a){a.classList.remove('open');});
+  var sw=document.querySelector('.sw[data-sw="'+gi+'-'+ki+'"]');
+  var ar=document.querySelector('[data-gi="'+gi+'"][data-ki="'+ki+'"]');
+  if(sw){sw.classList.add('open');if(ar)ar.classList.add('open');}
+  // L3
+  if(s2!==undefined&&s2>=0){
+    var el=document.querySelector('.l3[data-g="'+gi+'"][data-k="'+ki+'"][data-s="'+s2+'"]');
+    if(el){document.querySelectorAll('.l3[data-g="'+gi+'"][data-k="'+ki+'"]').forEach(function(x){x.classList.remove('active');});el.classList.add('active');}
+  }
+  pushRoute(gi,ki,s2);
+  // Scroll content to top
+  main.scrollTop=0;window.scrollTo({top:0,behavior:'smooth'});
 }
 
 // Route on load
-const route = getRoute();
-navigate(route.ch, route.s2);
+var r=getRoute();
+nav(r.g,r.k,r.s2);
 
-// PopState (browser back/forward)
-window.addEventListener('popstate', function(){
-  const r = getRoute();
-  navigate(r.ch, r.s2);
+// Click delegation
+sb.addEventListener('click',function(e){
+  var l2=e.target.closest('.l2');
+  var l3=e.target.closest('.l3');
+  var ar=e.target.closest('.ar');
+  if(ar){var gi=parseInt(ar.dataset.gi),ki=parseInt(ar.dataset.ki);var sw=document.querySelector('.sw[data-sw="'+gi+'-'+ki+'"]');if(sw){sw.classList.toggle('open');ar.classList.toggle('open');}return;}
+  if(l3){nav(parseInt(l3.dataset.g),parseInt(l3.dataset.k),parseInt(l3.dataset.s));return;}
+  if(l2&&!l2.classList.contains('cs'))nav(parseInt(l2.dataset.g),parseInt(l2.dataset.k));
 });
 
+window.addEventListener('hashchange',function(){var r2=getRoute();nav(r2.g,r2.k,r2.s2);});
 })();
 </script>
 </body>
